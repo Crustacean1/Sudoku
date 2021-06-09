@@ -7,7 +7,7 @@ ${target}: ${objects}
 	g++ -g -std=c++20 ${objects}  -o ${target}
 
 %.o: %.cpp ${headers}
-	g++ -g -Wall -std=c++20 -c $<
+	g++ -g -Wall -Werror -std=c++20 -c $<
 
 clean:
 	rm -f *.o
