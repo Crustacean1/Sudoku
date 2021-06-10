@@ -1,7 +1,7 @@
 #include <iostream>
-#include "LinkedList.h"
-#include "SudokuGenerator.h"
-#include "Sudoku.h"
+#include "LinkedList/LinkedList.h"
+#include "SudokuGenerator/SudokuGenerator.h"
+#include "Sudoku/Sudoku.h"
 #include <chrono>
 
 int main(int argc, char **argv)
