@@ -17,10 +17,10 @@ public:
     ~LinkedList();
 
     template <typename... V>
-    void push_back(const T &value, const V &...v);
+    void push_back(T value, const V &...v);
 
     template <typename... V>
-    void push_front(const T &value, const V &...v);
+    void push_front(T value, const V &...v);
     T &getElement(unsigned int i);
 
     void pop_front();
@@ -48,20 +48,20 @@ LinkedList<T>::~LinkedList()
 }
 template <typename T>
 template <typename... V>
-void LinkedList<T>::push_back(const T &value, const V &...v)
+void LinkedList<T>::push_back(T value, const V &...v)
 {
     if (_root == nullptr)
     {
-        _root = new LinkedNode<T>(value);
+        _root = new LinkedNode<T>(std::move(value));
         push_back(v...);
         return;
     }
-    _root->insertBefore(new LinkedNode<T>(value));
+    _root->insertBefore(new LinkedNode<T>(std::move(value)));
     push_back(v...);
 }
 template <typename T>
 template <typename... V>
-void LinkedList<T>::push_front(const T &value, const V &...v)
+void LinkedList<T>::push_front(T value, const V &...v)
 {
     if (_root == nullptr)
     {

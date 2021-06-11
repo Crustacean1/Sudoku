@@ -18,18 +18,18 @@ private:
     LinkedNode<T> &operator=(const LinkedNode<T> &node) {}
 
 public:
-    LinkedNode(const T &value);
+    LinkedNode(T value);
     ~LinkedNode();
 
     operator T &() { return _value; }
-    void setValue(const T &value) { _value = value; }
+    void setValue(T value) { _value = value; }
 
     T _value;
 
     void insertBefore(LinkedNode<T> *node);
-    void insertBefore(const T &value) { insertBefore(new LinkedNode<T>(value)); }
+    void insertBefore(T value) { insertBefore(new LinkedNode<T>(value)); }
     void insertAfter(LinkedNode<T> *node);
-    void insertAfter(const T &value) { insertAfter(new LinkedNode<T>(value)); }
+    void insertAfter(T value) { insertAfter(new LinkedNode<T>(value)); }
 
     void popIn();
     void popOut();
@@ -62,7 +62,7 @@ public:
     uint32_t count();
 };
 template <typename T>
-LinkedNode<T>::LinkedNode(const T &value) : _next(this), _prev(this), _value(value)
+LinkedNode<T>::LinkedNode(T value) : _next(this), _prev(this), _value(std::move(value))
 {
 }
 
