@@ -1,0 +1,95 @@
+\hypertarget{classUserInterface}{}\doxysection{User\+Interface Class Reference}
+\label{classUserInterface}\index{UserInterface@{UserInterface}}
+
+
+{\ttfamily \#include $<$User\+Interface.\+h$>$}
+
+Inheritance diagram for User\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classUserInterface}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUserInterface_aec19fc4da2b7e712bb4e80d7460a7414}\label{classUserInterface_aec19fc4da2b7e712bb4e80d7460a7414}} 
+{\footnotesize template$<$typename T $>$ }\\{\bfseries User\+Interface} (\mbox{\hyperlink{classGame}{Game}} \&game, \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ T $>$ \&event\+Queue, \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ std\+::string $>$ \&message\+Queue)
+\item 
+virtual void \mbox{\hyperlink{classUserInterface_afd5b994592fc20342ae4eb0272f873d6}{initiate}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classUserInterface_a300d79fdee519968ea12c80f584602c9}{render}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classUserInterface_a7e6efc543fba2792006c5580799876cf}{display}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classUserInterface_aa82d6e471dc4e585523d76300a7209d5}{input}} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ std\+::string $>$ \mbox{\hyperlink{classUserInterface_a5d9841c39ceaeaebfc7ac9bd93f65c05}{\+\_\+message\+Queue}}
+\item 
+\mbox{\hyperlink{classGame}{Game}} \& \mbox{\hyperlink{classUserInterface_ad8e9cdc04d32d67c38fd8005585281a5}{\+\_\+game}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base interface to be used by all derived classes implementing \mbox{\hyperlink{classUserInterface}{User\+Interface}}, graphical or in console 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classUserInterface_a7e6efc543fba2792006c5580799876cf}\label{classUserInterface_a7e6efc543fba2792006c5580799876cf}} 
+\index{UserInterface@{UserInterface}!display@{display}}
+\index{display@{display}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily virtual void User\+Interface\+::display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Displays, or in case of CLI flushes, rendered elements. Meaningful mainly in GUI applications 
+
+Implemented in \mbox{\hyperlink{classBasicInterface_ab02b778d4b521685d9e247e8e0073f24}{Basic\+Interface}}.
+
+\mbox{\Hypertarget{classUserInterface_afd5b994592fc20342ae4eb0272f873d6}\label{classUserInterface_afd5b994592fc20342ae4eb0272f873d6}} 
+\index{UserInterface@{UserInterface}!initiate@{initiate}}
+\index{initiate@{initiate}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{initiate()}{initiate()}}
+{\footnotesize\ttfamily virtual void User\+Interface\+::initiate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+invoked before rendering of UI 
+
+Implemented in \mbox{\hyperlink{classBasicInterface_aaac8c65ea568203101c3a8d0138b4caa}{Basic\+Interface}}.
+
+\mbox{\Hypertarget{classUserInterface_aa82d6e471dc4e585523d76300a7209d5}\label{classUserInterface_aa82d6e471dc4e585523d76300a7209d5}} 
+\index{UserInterface@{UserInterface}!input@{input}}
+\index{input@{input}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{input()}{input()}}
+{\footnotesize\ttfamily virtual void User\+Interface\+::input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gathers input from user and passes it to \+\_\+event\+Queue of appropriate type 
+
+Implemented in \mbox{\hyperlink{classBasicInterface_a56d81757824205b776f1327e0355d524}{Basic\+Interface}}.
+
+\mbox{\Hypertarget{classUserInterface_a300d79fdee519968ea12c80f584602c9}\label{classUserInterface_a300d79fdee519968ea12c80f584602c9}} 
+\index{UserInterface@{UserInterface}!render@{render}}
+\index{render@{render}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily virtual void User\+Interface\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Renders, or in case of CLI displays, UI elements. \mbox{\hyperlink{classGame}{Game}} rendered is specified to have select few base components, such as\+: Sudoku\+Board, \mbox{\hyperlink{classTimer}{Timer}} or \mbox{\hyperlink{classMistakeCounter}{Mistake\+Counter}} and others that will be drawn by UI instance 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classUserInterface_ad8e9cdc04d32d67c38fd8005585281a5}\label{classUserInterface_ad8e9cdc04d32d67c38fd8005585281a5}} 
+\index{UserInterface@{UserInterface}!\_game@{\_game}}
+\index{\_game@{\_game}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{\_game}{\_game}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGame}{Game}}\& User\+Interface\+::\+\_\+game\hspace{0.3cm}{\ttfamily [protected]}}
+
+Reference to instance of class deriving from abstract class \mbox{\hyperlink{classGame}{Game}} \mbox{\Hypertarget{classUserInterface_a5d9841c39ceaeaebfc7ac9bd93f65c05}\label{classUserInterface_a5d9841c39ceaeaebfc7ac9bd93f65c05}} 
+\index{UserInterface@{UserInterface}!\_messageQueue@{\_messageQueue}}
+\index{\_messageQueue@{\_messageQueue}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{\_messageQueue}{\_messageQueue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$std\+::string$>$ User\+Interface\+::\+\_\+message\+Queue\hspace{0.3cm}{\ttfamily [protected]}}
+
+Queue for passing messages between \mbox{\hyperlink{classGame}{Game}} and \mbox{\hyperlink{classUserInterface}{User\+Interface}} derived instances 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+User\+Interfaces/User\+Interface.\+h\end{DoxyCompactItemize}

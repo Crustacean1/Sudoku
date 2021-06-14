@@ -2,7 +2,6 @@
 #define USERINTERFACE
 
 #include "GameModes/Game.h"
-#include <unordered_map>
 
 class Sudoku;
 class EventQueue;
@@ -11,30 +10,50 @@ class Hint;
 class Timer;
 class MistakeCounter;
 class CountdownTimer;
+class Event;
 
+/**
+ * Base interface to be used by all derived classes implementing UserInterface, graphical or in console
+ */
 class UserInterface
 {
-private:
-    EventQueue & _eventQueue;
-
+protected:
+    /**
+     * Queue for passing messages between Game and UserInterface derived instances
+    */
+    LinkedList<std::string> _messageQueue;
+    
 public:
-    UserInterface(EventQueue & eventQueue) : _eventQueue(eventQueue);
+    template <typename T>
+    UserInterface(LinkedList<T> &eventQueue, LinkedList<std::string> &messageQueue) : _messageQueue(messageQueue) {}
 
+    /**
+     * Invoked before rendering of UI
+     */
     virtual void initiate() = 0;
 
-    virtual void render(Sudoku &sudoku) = 0;
-    virtual void render(Timer &timer) = 0;
-    virtual void render(Hint &hint) = 0;
-    virtual void render(MistakeCounter &mistakeCounter) = 0;
-    virtual void render(CountdownTimer &countdownTimer) = 0;
+    /**
+     * Clears screen before drawing
+     */
+    virtual void clear() = 0;
 
-    virtual void message(const std::string &msg) = 0;
+    /**
+     * Renders, or in case of CLI displays, UI elements. Game rendered is specified to have select few base components, such as: SudokuBoard,
+     * Timer or MistakeCounter and others that will be drawn by UI instance
+     */
+    virtual void render(Game & game) = 0;
 
+    /**
+     * Displays, or in case of CLI flushes, rendered elements. Meaningful mainly in GUI applications
+     */
     virtual void display() = 0;
 
+    /**
+     * Gathers input from user and passes it to _eventQueue of appropriate type
+     */
     virtual void input() = 0;
 
-    virtual ~UserInterface() = 0;
+    virtual ~UserInterface() {}
 };
 
 #endif /*INTERFACE*/

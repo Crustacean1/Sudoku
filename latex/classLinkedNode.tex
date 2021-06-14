@@ -1,0 +1,91 @@
+\hypertarget{classLinkedNode}{}\doxysection{Linked\+Node$<$ T $>$ Class Template Reference}
+\label{classLinkedNode}\index{LinkedNode$<$ T $>$@{LinkedNode$<$ T $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLinkedNode_ad9faddd7a175eb630a5d8208c15b1eb0}\label{classLinkedNode_ad9faddd7a175eb630a5d8208c15b1eb0}} 
+{\bfseries Linked\+Node} (T value)
+\item 
+\mbox{\Hypertarget{classLinkedNode_ab1c714f46b2b4ad15ef690b51302c47c}\label{classLinkedNode_ab1c714f46b2b4ad15ef690b51302c47c}} 
+{\bfseries operator T\&} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_a27714ccb016f2e50e51d649f5fa311f5}\label{classLinkedNode_a27714ccb016f2e50e51d649f5fa311f5}} 
+void {\bfseries set\+Value} (T value)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a70e539c0471ad4c9296c8922bd6fe33c}\label{classLinkedNode_a70e539c0471ad4c9296c8922bd6fe33c}} 
+void {\bfseries insert\+Before} (\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$node)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a61a59801ca2374445f5a191a23682b20}\label{classLinkedNode_a61a59801ca2374445f5a191a23682b20}} 
+void {\bfseries insert\+Before} (T value)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a3368ba545ad47e8277abaf629377036d}\label{classLinkedNode_a3368ba545ad47e8277abaf629377036d}} 
+void {\bfseries insert\+After} (\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$node)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a75d4d5577328a834ff59d16753a47018}\label{classLinkedNode_a75d4d5577328a834ff59d16753a47018}} 
+void {\bfseries insert\+After} (T value)
+\item 
+\mbox{\Hypertarget{classLinkedNode_ac179c44c630f48fd77f998691b45c60c}\label{classLinkedNode_ac179c44c630f48fd77f998691b45c60c}} 
+void {\bfseries pop\+In} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_a6bca3088af4fb493cff36f594891f039}\label{classLinkedNode_a6bca3088af4fb493cff36f594891f039}} 
+void {\bfseries pop\+Out} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_ad7d9c275e9f0347f39bbe2a501f5904b}\label{classLinkedNode_ad7d9c275e9f0347f39bbe2a501f5904b}} 
+\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$ {\bfseries erase} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_a6488f925deec11597109bfce01cdeb20}\label{classLinkedNode_a6488f925deec11597109bfce01cdeb20}} 
+bool {\bfseries inside\+Chain} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_a3b8a46db70f499ad749166b299e5c7cb}\label{classLinkedNode_a3b8a46db70f499ad749166b299e5c7cb}} 
+bool {\bfseries self\+Reference} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_a7a6425dc479e1609d544e98688359c55}\label{classLinkedNode_a7a6425dc479e1609d544e98688359c55}} 
+\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$ {\bfseries next} (unsigned int distance)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a80bccc935aa0fa48e2dd2e0da382065b}\label{classLinkedNode_a80bccc935aa0fa48e2dd2e0da382065b}} 
+\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$ {\bfseries prev} (unsigned int distance)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a1067995b09ccb1b77425a75bf97fc128}\label{classLinkedNode_a1067995b09ccb1b77425a75bf97fc128}} 
+\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$ {\bfseries next} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_a3403906b015133ee3f6691419fc8c005}\label{classLinkedNode_a3403906b015133ee3f6691419fc8c005}} 
+\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$ {\bfseries prev} ()
+\item 
+\mbox{\Hypertarget{classLinkedNode_ac537c81cdf54236a434766db9e222cce}\label{classLinkedNode_ac537c81cdf54236a434766db9e222cce}} 
+{\footnotesize template$<$typename F $>$ }\\\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$ {\bfseries select} (const F \&f)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a7590b9e0c38e986fdf643cfa1c175c4c}\label{classLinkedNode_a7590b9e0c38e986fdf643cfa1c175c4c}} 
+{\footnotesize template$<$typename F , typename... V$>$ }\\void {\bfseries iterate\+Forward} (const F \&f, V \&...v)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a05fa2df43e3dba38efc8989bfc99d800}\label{classLinkedNode_a05fa2df43e3dba38efc8989bfc99d800}} 
+{\footnotesize template$<$typename F , typename... V$>$ }\\void {\bfseries iterate\+Backward} (const F \&f, V \&...v)
+\item 
+\mbox{\Hypertarget{classLinkedNode_ab404dd1523e4f4d34cfdd6f5da10c9bb}\label{classLinkedNode_ab404dd1523e4f4d34cfdd6f5da10c9bb}} 
+uint32\+\_\+t {\bfseries count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLinkedNode_a5d69224a405a7ee4d3d10aebedd8ec56}\label{classLinkedNode_a5d69224a405a7ee4d3d10aebedd8ec56}} 
+static void {\bfseries advance} (\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$\&ptr, uint32\+\_\+t dist)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a42e9122f6dcd26fa1d45297148428ebd}\label{classLinkedNode_a42e9122f6dcd26fa1d45297148428ebd}} 
+static void {\bfseries advance} (\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$\&ptr)
+\item 
+\mbox{\Hypertarget{classLinkedNode_a7e6430d483563fe53ed5d86614847d48}\label{classLinkedNode_a7e6430d483563fe53ed5d86614847d48}} 
+static void {\bfseries recede} (\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$\&ptr, uint32\+\_\+t dist)
+\item 
+\mbox{\Hypertarget{classLinkedNode_ae95af0f5421b52f12a8e6391445c1b00}\label{classLinkedNode_ae95af0f5421b52f12a8e6391445c1b00}} 
+static void {\bfseries recede} (\mbox{\hyperlink{classLinkedNode}{Linked\+Node}}$<$ T $>$ $\ast$\&ptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLinkedNode_a22836580b664a2303e0b0eee66355b7b}\label{classLinkedNode_a22836580b664a2303e0b0eee66355b7b}} 
+T {\bfseries \+\_\+value}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Linked\+Node/Linked\+Node.\+h\end{DoxyCompactItemize}

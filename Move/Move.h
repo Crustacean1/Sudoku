@@ -4,9 +4,11 @@
 #include "../LinkedNode/LinkedNode.h"
 #include "../Sudoku/Sudoku.h"
 
+/** Class representing single move by player, meant to be able to retrace itself*/
 class Move
 {
 private:
+    /** Previous content of the filled cell*/
     uint8_t _prevNumber;
 
 public:

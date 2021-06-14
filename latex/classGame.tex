@@ -1,0 +1,142 @@
+\hypertarget{classGame}{}\doxysection{Game Class Reference}
+\label{classGame}\index{Game@{Game}}
+
+
+{\ttfamily \#include $<$Game.\+h$>$}
+
+Inheritance diagram for Game\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGame}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classGame_a7f57a7a8408e554d0a72882c287e1d04}{Game\+State}} \{ \newline
+{\bfseries Loading}
+, {\bfseries Play}
+, {\bfseries Pause}
+, {\bfseries Time\+Out}
+, \newline
+{\bfseries Final\+Mistake}
+, {\bfseries Game\+Over}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame_aa9b65f5d221687df0595f5d0999ed76e}\label{classGame_aa9b65f5d221687df0595f5d0999ed76e}} 
+{\footnotesize template$<$typename T $>$ }\\{\bfseries Game} (\mbox{\hyperlink{classUserInterface}{User\+Interface}} \&interface, \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ T $>$ \&event\+Queue)
+\item 
+virtual void \mbox{\hyperlink{classGame_a7ec18f20e45fa9e0c5dc27b7b90935af}{apply\+Move}} (\mbox{\hyperlink{classMove}{Move}} \&move)=0
+\item 
+virtual void \mbox{\hyperlink{classGame_a73d8cd27831eeb8c8724a0b54785db68}{retract\+Move}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classGame_af03f9a63ed632a1d18c7281491a935ec}{ask\+For\+Hint}} (\mbox{\hyperlink{classCoordinates}{Coordinates}} coords)=0
+\item 
+\mbox{\Hypertarget{classGame_ab47041b9ff91e2a864f636edba3d4e8f}\label{classGame_ab47041b9ff91e2a864f636edba3d4e8f}} 
+virtual void {\bfseries init} ()=0
+\item 
+\mbox{\Hypertarget{classGame_a077b5c7b905ef5618892ab443ff352f5}\label{classGame_a077b5c7b905ef5618892ab443ff352f5}} 
+virtual void {\bfseries game\+Loop} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classUserInterface}{User\+Interface}} $>$ \mbox{\hyperlink{classGame_a02435206e86560b80bd63161c2262153}{\+\_\+interface}}
+\item 
+\mbox{\Hypertarget{classGame_a8673f7eed90951ef8f81371f2671f4b6}\label{classGame_a8673f7eed90951ef8f81371f2671f4b6}} 
+\mbox{\hyperlink{classGame_a7f57a7a8408e554d0a72882c287e1d04}{Game\+State}} {\bfseries \+\_\+state}
+\item 
+\mbox{\hyperlink{classSudoku}{Sudoku}} \mbox{\hyperlink{classGame_a7803b25efeedd3d82e57e0ce2da69f8b}{\+\_\+base\+Sudoku}}
+\item 
+\mbox{\hyperlink{classSudoku}{Sudoku}} \mbox{\hyperlink{classGame_a81f87dc20b188ae0e3e23b1f81296693}{\+\_\+sudoku}}
+\item 
+\mbox{\hyperlink{classSudoku}{Sudoku}} \mbox{\hyperlink{classGame_a7a4510ff1d53fc690649f5fa80672807}{\+\_\+filled\+Sudoku}}
+\item 
+\mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ \mbox{\hyperlink{classMove}{Move}} $>$ \mbox{\hyperlink{classGame_ace4db6a2f81ca36193d54bf918e92a34}{\+\_\+moves}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract class representing game mode It\textquotesingle{}s responsible for modyfing sudoku board and controling game state 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classGame_a7f57a7a8408e554d0a72882c287e1d04}\label{classGame_a7f57a7a8408e554d0a72882c287e1d04}} 
+\index{Game@{Game}!GameState@{GameState}}
+\index{GameState@{GameState}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{GameState}{GameState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classGame_a7f57a7a8408e554d0a72882c287e1d04}{Game\+::\+Game\+State}}}
+
+Enum representing state of game 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame_a7ec18f20e45fa9e0c5dc27b7b90935af}\label{classGame_a7ec18f20e45fa9e0c5dc27b7b90935af}} 
+\index{Game@{Game}!applyMove@{applyMove}}
+\index{applyMove@{applyMove}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{applyMove()}{applyMove()}}
+{\footnotesize\ttfamily virtual void Game\+::apply\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMove}{Move}} \&}]{move }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Applies move to sudoku 
+
+Implemented in \mbox{\hyperlink{classBasicGame_a755874457d4c286f61ef162ed8243efb}{Basic\+Game}}.
+
+\mbox{\Hypertarget{classGame_af03f9a63ed632a1d18c7281491a935ec}\label{classGame_af03f9a63ed632a1d18c7281491a935ec}} 
+\index{Game@{Game}!askForHint@{askForHint}}
+\index{askForHint@{askForHint}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{askForHint()}{askForHint()}}
+{\footnotesize\ttfamily virtual void Game\+::ask\+For\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCoordinates}{Coordinates}}}]{coords }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Reveals one hidden cell 
+
+Implemented in \mbox{\hyperlink{classBasicGame_a231256dadec64c29f453d492009cd04f}{Basic\+Game}}.
+
+\mbox{\Hypertarget{classGame_a73d8cd27831eeb8c8724a0b54785db68}\label{classGame_a73d8cd27831eeb8c8724a0b54785db68}} 
+\index{Game@{Game}!retractMove@{retractMove}}
+\index{retractMove@{retractMove}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{retractMove()}{retractMove()}}
+{\footnotesize\ttfamily virtual void Game\+::retract\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Undoes a last move 
+
+Implemented in \mbox{\hyperlink{classBasicGame_a51042f1e305b8305eaa10718f6988ae9}{Basic\+Game}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classGame_a7803b25efeedd3d82e57e0ce2da69f8b}\label{classGame_a7803b25efeedd3d82e57e0ce2da69f8b}} 
+\index{Game@{Game}!\_baseSudoku@{\_baseSudoku}}
+\index{\_baseSudoku@{\_baseSudoku}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{\_baseSudoku}{\_baseSudoku}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSudoku}{Sudoku}} Game\+::\+\_\+base\+Sudoku\hspace{0.3cm}{\ttfamily [protected]}}
+
+Generated sudoku, with gaps \mbox{\Hypertarget{classGame_a7a4510ff1d53fc690649f5fa80672807}\label{classGame_a7a4510ff1d53fc690649f5fa80672807}} 
+\index{Game@{Game}!\_filledSudoku@{\_filledSudoku}}
+\index{\_filledSudoku@{\_filledSudoku}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{\_filledSudoku}{\_filledSudoku}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSudoku}{Sudoku}} Game\+::\+\_\+filled\+Sudoku\hspace{0.3cm}{\ttfamily [protected]}}
+
+Generated filled sudoku \mbox{\Hypertarget{classGame_a02435206e86560b80bd63161c2262153}\label{classGame_a02435206e86560b80bd63161c2262153}} 
+\index{Game@{Game}!\_interface@{\_interface}}
+\index{\_interface@{\_interface}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{\_interface}{\_interface}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classUserInterface}{User\+Interface}}$>$ Game\+::\+\_\+interface\hspace{0.3cm}{\ttfamily [protected]}}
+
+Pointer to interface used by game mode \mbox{\Hypertarget{classGame_ace4db6a2f81ca36193d54bf918e92a34}\label{classGame_ace4db6a2f81ca36193d54bf918e92a34}} 
+\index{Game@{Game}!\_moves@{\_moves}}
+\index{\_moves@{\_moves}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{\_moves}{\_moves}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$\mbox{\hyperlink{classMove}{Move}}$>$ Game\+::\+\_\+moves\hspace{0.3cm}{\ttfamily [protected]}}
+
+List of moves \mbox{\Hypertarget{classGame_a81f87dc20b188ae0e3e23b1f81296693}\label{classGame_a81f87dc20b188ae0e3e23b1f81296693}} 
+\index{Game@{Game}!\_sudoku@{\_sudoku}}
+\index{\_sudoku@{\_sudoku}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{\_sudoku}{\_sudoku}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSudoku}{Sudoku}} Game\+::\+\_\+sudoku\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\hyperlink{classSudoku}{Sudoku}} in progress 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Game\+Modes/Game.\+h\end{DoxyCompactItemize}

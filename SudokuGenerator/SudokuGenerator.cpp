@@ -8,8 +8,9 @@
 //7506718
 //2159308445
 // 3976840948
+// 4082856991 for 5
 SudokuGenerator::SudokuGenerator(uint16_t rootSize) : _rootSize(rootSize), _size(_rootSize * _rootSize),
-                                                      _seed(1 ? std::chrono::system_clock::now().time_since_epoch().count() : 2439319374),
+                                                      _seed(0 ? std::chrono::system_clock::now().time_since_epoch().count() : 2512832050),
                                                       _engine(_seed), _sudokuDist(1, _rootSize * _rootSize)
 {
     std::cout << "seed: " << _seed << std::endl;
@@ -25,10 +26,14 @@ SudokuGenerator::SudokuNode **SudokuGenerator::generateHeaders()
 
     SudokuNode **headerJumpTable = new SudokuNode *[_size * _size * 4];
     headerJumpTable[0] = header;
+    header->header = header;
+    header->value = 1;
 
     for (unsigned int i = 1; i < _size * _size * 4; ++i)
     {
         header->row->insertBefore((headerJumpTable[i] = new SudokuNode)->row);
+        headerJumpTable[i]->header = headerJumpTable[i];
+        headerJumpTable[i]->value = 1;
     }
     return headerJumpTable;
 }
@@ -99,13 +104,13 @@ void SudokuGenerator::disposeSparseConstraintMatrix(SudokuNode *header)
     }
 }
 
-bool SudokuGenerator::algorithmX(SudokuNode *header, LinkedNode<uint16_t> *solution)
+bool SudokuGenerator::algorithmX(SudokuNode *header, LinkedNode<SudokuNode *> *solution)
 {
     while (header->row->next()->prev() != header->row)
     {
         header = header->row->prev()->next()->_value;
     }
-    
+
     //Get column with least nodes
     header = header->row->select([](SudokuNode *node)
                                  { return -node->value; })
@@ -119,7 +124,7 @@ bool SudokuGenerator::algorithmX(SudokuNode *header, LinkedNode<uint16_t> *solut
     {
         return false;
     }
-    
+
     //Iterate over column with random element
     auto shift = std::uniform_int_distribution<uint16_t>(1, header->value + 1)(_engine);
     header->col->popOut();
@@ -129,84 +134,198 @@ bool SudokuGenerator::algorithmX(SudokuNode *header, LinkedNode<uint16_t> *solut
 
     do
     {
-        LinkedNode<SudokuNode *> *droppedColumns = new LinkedNode<SudokuNode *>(header);
-
-        for (auto rit = it->_value->row->next(); rit != it->_value->row; rit = rit->next())
-        {
-            droppedColumns->insertAfter(rit->_value->header);
-        }
-
         header->col->popIn();
-        droppedColumns->iterateForward(dropColumn);
-        solution->insertAfter(it->_value->value);
+        dropNode(it->_value);
 
-        if (algorithmX(header->row->next()->_value, solution))
+        solution->insertAfter(it->_value);
+
+        if (algorithmX(header, solution)) // No tail recursion for you...
         {
-            droppedColumns->iterateBackward(restoreColumn);
-            delete droppedColumns;
+            //restoreNode(it->_value);
             return true;
         }
 
-        droppedColumns->iterateBackward(restoreColumn);
+        restoreNode(it->_value);
+
         header->col->popOut();
         it = it->next();
 
         delete solution->next()->erase();
-        delete droppedColumns;
+
     } while (ptr != it);
     header->col->popIn();
 
     return false;
 }
-void SudokuGenerator::dropColumn(SudokuNode *header)
+void SudokuGenerator::dropNode(SudokuNode *node)
 {
-    for (auto it = header->col->next(); it != header->col; it = it->next())
+    //todo: assert if node is not a header ( header==node)
+    auto outer = node->row;
+    do
     {
-        for (auto row = it->_value->row->next(); row != it->_value->row; row = row->next())
+        outer->_value->header->row->popOut();
+        for (auto colIt = outer->_value->header->col->next(); colIt != outer->_value->header->col; colIt = colIt->next())
         {
-            row->_value->col->popOut();
-            row->_value->header->value -= 1;
+            for (auto rowIt = colIt->_value->row->next(); rowIt != colIt->_value->row; rowIt = rowIt->next())
+            {
+                rowIt->_value->col->popOut();
+                rowIt->_value->header->value -= 1;
+            }
         }
-    }
-    header->row->popOut();
+        outer = outer->next();
+    } while (outer != node->row);
 }
-void SudokuGenerator::restoreColumn(SudokuNode *header)
+void SudokuGenerator::restoreNode(SudokuNode *node)
 {
-    header->row->popIn();
-
-    for (auto it = header->col->prev(); it != header->col; it = it->prev())
+    //todo: assert if node is not a header ( header==node)
+    auto outer = node->row->prev();
+    do
     {
-        for (auto row = it->_value->row->prev(); row != it->_value->row; row = row->prev())
+        for (auto colIt = outer->_value->header->col->prev(); colIt != outer->_value->header->col; colIt = colIt->prev())
         {
-            row->_value->col->popIn();
-            row->_value->header->value += 1;
+            for (auto rowIt = colIt->_value->row->prev(); rowIt != colIt->_value->row; rowIt = rowIt->prev())
+            {
+                rowIt->_value->col->popIn();
+                rowIt->_value->header->value += 1;
+            }
         }
-    }
+        outer->_value->header->row->popIn();
+        outer = outer->prev();
+    } while (outer != node->row->prev());
 }
 
-void SudokuGenerator::decode(const uint16_t &value, const uint16_t &size, uint8_t **tab)
+void SudokuGenerator::decode(SudokuNode *node, const uint16_t &size, uint8_t **tab)
 {
-    tab[value % size][(value / size) % size] = ((value / size) / size) + 1;
+    tab[node->value % size][(node->value / size) % size] = ((node->value / size) / size) + 1;
 }
-Sudoku SudokuGenerator::generate()
-{
-    auto matrix = generateSparseConstraintMatrix();
-    LinkedNode<uint16_t> *solution = new LinkedNode<uint16_t>(0);
-    if (!algorithmX(matrix, solution))
-    {
-        throw std::string("solution not found");
-    }
-    disposeSparseConstraintMatrix(matrix);
 
+Sudoku SudokuGenerator::constructSudoku(LinkedNode<SudokuNode *> *solution)
+{
     uint8_t **sudoku = new uint8_t *[_rootSize * _rootSize];
     for (auto i = 0; i < _rootSize * _rootSize; ++i)
     {
         sudoku[i] = new uint8_t[_rootSize * _rootSize];
         memset(sudoku[i], 0, _size * sizeof(uint8_t));
     }
-    solution = solution->next();
-    delete solution->prev()->erase();
     solution->iterateForward(decode, _size, sudoku);
-    delete solution;
-    return Sudoku(_rootSize, sudoku);
+    Sudoku s(_rootSize, sudoku);
+    return s;
+}
+
+Sudoku SudokuGenerator::generate()
+{
+    auto matrix = generateSparseConstraintMatrix();
+    LinkedNode<SudokuNode *> *solution = new LinkedNode<SudokuNode *>(new SudokuNode);
+    if (!algorithmX(matrix, solution))
+    {
+        throw std::string("solution not found");
+    }
+
+    //removing fake root
+    solution = solution->next();
+    delete solution->prev()->_value;
+    delete solution->prev()->erase();
+
+    Sudoku a(constructSudoku(solution));
+    std::cout << a << std::endl;
+
+    Sudoku sudoku(removeSudokuHints(matrix, solution));
+
+    //cleaning up
+    //delete solution;
+    disposeSparseConstraintMatrix(matrix);
+    return sudoku;
+}
+/*
+void SudokuGenerator::applySolution(LinkedNode<SudokuNode *> *solution)
+{
+    solution->iterateForward([](SudokuNode *node)
+                             { dropNode(node); });
+}*/
+
+bool SudokuGenerator::isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity)
+{
+    while (header->row->next()->prev() != header->row)
+    {
+        header = header->row->next()->_value;
+    }
+
+    header = header->row->select([](SudokuNode *node)
+                                 { return -node->value; })
+                 ->_value;
+    if (header->row->next() == header->row)
+    {
+        return (++ambiguity) > 1;
+    }
+    if (header->col->next() == header->col)
+    {
+        return false;
+    }
+    header->col->popOut();
+    auto colIt = header->col->next();
+    do
+    {
+        header->col->popIn();
+        dropNode(colIt->_value);
+        if (isSudokuAmbiguous(header, ambiguity))
+        {
+            restoreNode(colIt->_value);
+            return true;
+        }
+        restoreNode(colIt->_value);
+
+        header->col->popOut();
+        colIt = colIt->next();
+    } while (colIt != header->col->next());
+
+    header->col->popIn();
+    return false;
+}
+void SudokuGenerator::trimSudoku(Sudoku & a,LinkedNode<SudokuNode*> * deletions)
+{
+    auto it = deletions;
+    auto end = it;
+    do
+    {
+        a[it->_value->value%_size][(it->_value->value/_size)%_size] = 0;
+        it = it->next();
+    } while (end!=it);
+    
+}
+Sudoku SudokuGenerator::removeSudokuHints(SudokuNode *matrix, LinkedNode<SudokuNode *> *solutions)
+{
+    bool limit = false;
+    uint8_t ambiguity;
+    auto ptr = solutions;
+    auto end = ptr;
+    auto i = 0;
+    LinkedNode<SudokuNode *> *deletedNodes = new LinkedNode<SudokuNode *>(new SudokuNode());
+    while (!limit)
+    {
+        __DEBUG(i++);
+        limit = true;
+        do
+        {
+            restoreNode(ptr->_value);
+            ambiguity = 0;
+            if (isSudokuAmbiguous(matrix, ambiguity))
+            {
+                dropNode(ptr->_value);
+                std::cout << "shame" << std::endl;
+                limit = false;
+                ptr = ptr->next();
+                break;
+            }
+            deletedNodes->insertBefore(ptr);
+            ptr = ptr->next();
+        } while (ptr != end);
+        break;
+    }
+    __DEBUG(deletedNodes->count());
+    Sudoku a(constructSudoku(solutions));
+    deletedNodes = deletedNodes->next();
+    delete deletedNodes->prev()->_value;
+    delete deletedNodes->prev()->erase();
+    trimSudoku(a,deletedNodes);
+    return a;
 }

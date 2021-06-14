@@ -1,0 +1,72 @@
+\hypertarget{classBasicGame}{}\doxysection{Basic\+Game Class Reference}
+\label{classBasicGame}\index{BasicGame@{BasicGame}}
+Inheritance diagram for Basic\+Game\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBasicGame}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBasicGame_ac49f0d38da95acf3f3556ee2c1677d4e}\label{classBasicGame_ac49f0d38da95acf3f3556ee2c1677d4e}} 
+{\bfseries Basic\+Game} (\mbox{\hyperlink{classUserInterface}{User\+Interface}} \&interface, \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classEvent}{Event}} $>$$>$ \&queue)
+\item 
+\mbox{\Hypertarget{classBasicGame_a6b0f1d8153e3ae1e313ad15d39f97c4f}\label{classBasicGame_a6b0f1d8153e3ae1e313ad15d39f97c4f}} 
+void {\bfseries init} ()
+\item 
+void \mbox{\hyperlink{classBasicGame_a755874457d4c286f61ef162ed8243efb}{apply\+Move}} (\mbox{\hyperlink{classMove}{Move}} \&move)
+\item 
+void \mbox{\hyperlink{classBasicGame_a51042f1e305b8305eaa10718f6988ae9}{retract\+Move}} ()
+\item 
+void \mbox{\hyperlink{classBasicGame_a231256dadec64c29f453d492009cd04f}{ask\+For\+Hint}} (\mbox{\hyperlink{classCoordinates}{Coordinates}} coords)
+\item 
+\mbox{\Hypertarget{classBasicGame_afe4a7504679f1c0107ed69c4e7e13a9e}\label{classBasicGame_afe4a7504679f1c0107ed69c4e7e13a9e}} 
+void {\bfseries change\+State} (\mbox{\hyperlink{classGame_a7f57a7a8408e554d0a72882c287e1d04}{Game\+::\+Game\+State}} \&new\+State)
+\item 
+\mbox{\Hypertarget{classBasicGame_aaa22c779362e61cf10f7966495e6ab73}\label{classBasicGame_aaa22c779362e61cf10f7966495e6ab73}} 
+void {\bfseries game\+Loop} ()
+\item 
+\mbox{\Hypertarget{classBasicGame_a0339a0c3de8a7247114612e90830f3f1}\label{classBasicGame_a0339a0c3de8a7247114612e90830f3f1}} 
+void {\bfseries update\+Leaderboard} (Leaderboard \&leaderboard)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBasicGame_a755874457d4c286f61ef162ed8243efb}\label{classBasicGame_a755874457d4c286f61ef162ed8243efb}} 
+\index{BasicGame@{BasicGame}!applyMove@{applyMove}}
+\index{applyMove@{applyMove}!BasicGame@{BasicGame}}
+\doxysubsubsection{\texorpdfstring{applyMove()}{applyMove()}}
+{\footnotesize\ttfamily void Basic\+Game\+::apply\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMove}{Move}} \&}]{move }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Applies move to sudoku 
+
+Implements \mbox{\hyperlink{classGame_a7ec18f20e45fa9e0c5dc27b7b90935af}{Game}}.
+
+\mbox{\Hypertarget{classBasicGame_a231256dadec64c29f453d492009cd04f}\label{classBasicGame_a231256dadec64c29f453d492009cd04f}} 
+\index{BasicGame@{BasicGame}!askForHint@{askForHint}}
+\index{askForHint@{askForHint}!BasicGame@{BasicGame}}
+\doxysubsubsection{\texorpdfstring{askForHint()}{askForHint()}}
+{\footnotesize\ttfamily void Basic\+Game\+::ask\+For\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCoordinates}{Coordinates}}}]{coords }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Reveals one hidden cell 
+
+Implements \mbox{\hyperlink{classGame_af03f9a63ed632a1d18c7281491a935ec}{Game}}.
+
+\mbox{\Hypertarget{classBasicGame_a51042f1e305b8305eaa10718f6988ae9}\label{classBasicGame_a51042f1e305b8305eaa10718f6988ae9}} 
+\index{BasicGame@{BasicGame}!retractMove@{retractMove}}
+\index{retractMove@{retractMove}!BasicGame@{BasicGame}}
+\doxysubsubsection{\texorpdfstring{retractMove()}{retractMove()}}
+{\footnotesize\ttfamily void Basic\+Game\+::retract\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Undoes a last move 
+
+Implements \mbox{\hyperlink{classGame_a73d8cd27831eeb8c8724a0b54785db68}{Game}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Game\+Modes/Basic\+Game.\+h\item 
+Game\+Modes/Basic\+Game.\+cpp\end{DoxyCompactItemize}

@@ -13,3 +13,4 @@ void Move::retract(uint8_t **board) const
 {
     board[_pos._row][_pos._column] = _prevNumber;
 }
+Move::~Move(){}

@@ -10,6 +10,7 @@
 
 class Sudoku;
 
+/** Class responsible for sudoku generation*/
 class SudokuGenerator
 {
     struct SudokuNode
@@ -43,12 +44,21 @@ private:
     SudokuNode *generateSparseConstraintMatrix();
     void disposeSparseConstraintMatrix(SudokuNode *header);
 
-    bool algorithmX(SudokuNode *header, LinkedNode<uint16_t> *solution);
+    bool algorithmX(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
 
-    static void dropColumn(SudokuNode *header);
-    static void restoreColumn(SudokuNode *header);
+    //void applySolution(LinkedNode<SudokuNode *> *solution);
 
-    static void decode(const uint16_t &value, const uint16_t &size, uint8_t **tab);
+    static void dropNode(SudokuNode *node);
+    static void restoreNode(SudokuNode *node);
+
+    static void decode(SudokuNode *node, const uint16_t &size, uint8_t **tab);
+
+    Sudoku constructSudoku(LinkedNode<SudokuNode *> *solution);
+
+    Sudoku removeSudokuHints(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
+    void trimSudoku(Sudoku &sudoku, LinkedNode<SudokuNode *> *deletions);
+
+    bool isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity);
 
 public:
     SudokuGenerator(uint16_t rootSize);

@@ -1,11 +1,11 @@
-#include <iostream>
-#include "LinkedList/LinkedList.h"
+#include "GameModes/BasicGame.h"
+#include "UserInterfaces/BasicInterface.h"
+#include "Event/Event.h"
 #include "SudokuGenerator/SudokuGenerator.h"
-#include "Sudoku/Sudoku.h"
-#include <chrono>
 
 int main(int argc, char **argv)
 {
+    
     int a = (argc > 1 && argv[1][0] > '0' && argv[1][0] < '9') ? (argv[1][0] - '0') : 3;
     SudokuGenerator generator(a);
     try
@@ -16,5 +16,12 @@ int main(int argc, char **argv)
     catch (const std::string &e)
     {
         std::cerr << e << '\n';
-    }
+    }/*
+    LinkedList<std::unique_ptr<Event>> eventQueue;
+    LinkedList<std::string> messageQueue;
+    BasicInterface bInterface(eventQueue,messageQueue);
+    UserInterface &interface(bInterface);
+    BasicGame game(interface, eventQueue);
+    game.init();
+    game.gameLoop();*/
 }

@@ -10,6 +10,7 @@ class Sudoku;
 
 std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
 
+/** Class representing Sudoku coordinates*/
 class Coordinates
 {
 public:
@@ -18,26 +19,49 @@ public:
     Coordinates(uint8_t row = 0, uint8_t column = 0) : _row(row), _column(column) {}
 };
 
+/**Class responsible for holding, and manipulating sudoku board*/
 class Sudoku
 {
 private:
-    /* data */
+    /** Sudoku side length can only be squares of natural numbers, hence _rootSize ans _size*/
     uint16_t _rootSize;
     uint16_t _size;
+    /** Board representing sudoku fields, missing values are represented as zeros*/
     uint8_t **_board;
+
     friend std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
-    bool checkRow(uint16_t row, uint8_t number);
-    bool checkColumn(uint16_t column, uint8_t number);
-    bool checkBox(uint16_t rbox, uint16_t cbox, uint8_t number);
+
+    /** Checks fro conflicts in row*/
+    bool checkRow(uint16_t row, uint8_t number) const;
+    /** Checks for conflicts in column*/
+    bool checkColumn(uint16_t column, uint8_t number) const;
+    /** Check for conflicts in box*/
+    bool checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const;
 
 public:
     Sudoku(uint8_t rootSize, uint8_t **board);
-    bool isComplete();
+    Sudoku(const Sudoku &sudoku);
+    Sudoku(Sudoku &&sudoku);
+    Sudoku();
 
-    bool applyMove(Move &move);
+    Sudoku &operator=(const Sudoku &sudoku);
+    Sudoku &operator=(Sudoku &&sudoku);
+
+    /** Check if sudoku is filled*/
+    bool isComplete() const;
+
+    /** Applies move with no regard for correctness*/
+    void applyMove(Move &move);
+    /** Applies move if valid*/
+    bool applyMoveConditionally(Move &move);
+    /** Undoes a move*/
     void retractMove(const Move &move);
 
+    uint16_t getSize() const;
+    uint16_t getRootSize() const;
+
     uint8_t *operator[](uint16_t row);
+    uint8_t &operator[](const Coordinates &coords);
     ~Sudoku();
 };
 #endif /*SUDOKU*/
