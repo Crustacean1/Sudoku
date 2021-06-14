@@ -50,7 +50,8 @@ private:
 
     bool algorithmX(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
 
-    //void applySolution(LinkedNode<SudokuNode *> *solution);
+    void applySolution(LinkedNode<SudokuNode *> *solution);
+    void revertSolution(LinkedNode<SudokuNode*> * solution);
 
     static void dropNode(SudokuNode *node);
     static void restoreNode(SudokuNode *node);

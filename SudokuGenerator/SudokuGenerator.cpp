@@ -10,7 +10,7 @@
 // 3976840948
 // 4082856991 for 5
 SudokuGenerator::SudokuGenerator(uint16_t rootSize) : _rootSize(rootSize), _size(_rootSize * _rootSize),
-                                                      _seed(1 ? std::chrono::system_clock::now().time_since_epoch().count() : 2512832050),
+                                                      _seed(1 ? std::chrono::system_clock::now().time_since_epoch().count() : 3334395441),
                                                       _engine(_seed), _sudokuDist(1, _rootSize * _rootSize)
 {
     std::cout << "seed: " << _seed << std::endl;
@@ -295,6 +295,15 @@ void SudokuGenerator::trimSudoku(Sudoku &a, LinkedNode<SudokuNode *> *deletions)
     } while (end != it);
 }
 
+void SudokuGenerator::applySolution(LinkedNode<SudokuNode*> *solution)
+{
+    solution->iterateForward([](SudokuNode*node){dropNode(node);});
+}
+void SudokuGenerator::revertSolution(LinkedNode<SudokuNode*> * solution)
+{
+    solution->iterateBackward([](SudokuNode*node){restoreNode(node);});
+}
+
 Sudoku SudokuGenerator::generateMinimalSudoku(SudokuNode *matrix, LinkedNode<SudokuNode *> *solutions)
 {
     uint8_t ambiguity = 0;
@@ -311,10 +320,8 @@ Sudoku SudokuGenerator::generateMinimalSudoku(SudokuNode *matrix, LinkedNode<Sud
         dropNode(it->_value);
         ambiguity = 0;
     }
-    
+    //deletedNodes->prev()->erase();
     __DEBUG(deletedNodes->count());
     Sudoku a(constructSudoku(deletedNodes));
-    
-    std::cout << a << std::endl;
     return a;
 }
