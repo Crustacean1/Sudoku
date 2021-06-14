@@ -2,6 +2,7 @@
 #define SUDOKUGENERATOR
 
 #define __DEBUG(x) std::cout << __LINE__ << " : " << #x << " = " << (x) << std::endl;
+#define __ASSERT(x) if(!(x)){std::cerr<<"assertion failed: "<<"line: "<<__LINE__<<" "<<#x<<std::endl;exit(-1);}
 #define __LOG(x) std::cout << x << std::endl;
 
 #include <cstdint>
@@ -19,6 +20,9 @@ class SudokuGenerator
         LinkedNode<SudokuNode *> *row;
         LinkedNode<SudokuNode *> *col;
         SudokuNode *header;
+
+        uint32_t global_id =0;
+
         SudokuNode() : value(0), row(new LinkedNode<SudokuNode *>(this)), col(new LinkedNode<SudokuNode *>(this)), header(nullptr) {}
         SudokuNode(uint16_t val) : value(val), row(new LinkedNode<SudokuNode *>(this)), col(new LinkedNode<SudokuNode *>(this)), header(nullptr) {}
         ~SudokuNode()
@@ -55,7 +59,7 @@ private:
 
     Sudoku constructSudoku(LinkedNode<SudokuNode *> *solution);
 
-    Sudoku removeSudokuHints(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
+    Sudoku generateMinimalSudoku(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
     void trimSudoku(Sudoku &sudoku, LinkedNode<SudokuNode *> *deletions);
 
     bool isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity);

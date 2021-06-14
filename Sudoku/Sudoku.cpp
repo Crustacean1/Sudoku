@@ -9,6 +9,11 @@ std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku)
     {
         for (int j = 0; j < sudoku._size; ++j)
         {
+            if (sudoku._board[i][j] == 0)
+            {
+                std::cout<<"   ";
+                continue;
+            }
             stream << std::setw(2) << (int)sudoku._board[i][j] << " ";
         }
         stream << "\n";
