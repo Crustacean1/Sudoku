@@ -295,33 +295,46 @@ void SudokuGenerator::trimSudoku(Sudoku &a, LinkedNode<SudokuNode *> *deletions)
     } while (end != it);
 }
 
-void SudokuGenerator::applySolution(LinkedNode<SudokuNode*> *solution)
+void SudokuGenerator::applySolution(LinkedNode<SudokuNode *> *solution)
 {
-    solution->iterateForward([](SudokuNode*node){dropNode(node);});
+    solution->iterateForward([](SudokuNode *node)
+                             { dropNode(node); });
 }
-void SudokuGenerator::revertSolution(LinkedNode<SudokuNode*> * solution)
+void SudokuGenerator::revertSolution(LinkedNode<SudokuNode *> *solution)
 {
-    solution->iterateBackward([](SudokuNode*node){restoreNode(node);});
+    solution->iterateBackward([](SudokuNode *node)
+                              { restoreNode(node); });
 }
 
 Sudoku SudokuGenerator::generateMinimalSudoku(SudokuNode *matrix, LinkedNode<SudokuNode *> *solutions)
 {
     uint8_t ambiguity = 0;
-    
-    //auto i = 0;
-    LinkedNode<SudokuNode *> *deletedNodes = new LinkedNode<SudokuNode *>(new SudokuNode());
-    
-    auto it = solutions->prev();
-    while(isSudokuAmbiguous(matrix,ambiguity))
+    //LinkedNode<SudokuNode *> *deletedNodes = new LinkedNode<SudokuNode *>(new SudokuNode());
+    bool filled = false;
+    LinkedNode<SudokuNode *> *it, *end;
+    it = end = solutions;
+    while (!filled)
     {
-        __DEBUG((int)ambiguity);
-        it = it->next();
-        deletedNodes->insertBefore(it->_value);
-        dropNode(it->_value);
-        ambiguity = 0;
+        filled = true;
+        end = it->prev();
+        do
+        {
+            it->popOut();
+            applySolution(it->next());
+            ambiguity = 0;
+            if (isSudokuAmbiguous(matrix, ambiguity))
+            {
+                revertSolution(it->next());
+                it->popIn();
+            }
+            else
+            {
+                filled = false;
+                revertSolution(it->next());
+            }
+            it = it->next();
+        } while (it != end->next());
     }
-    //deletedNodes->prev()->erase();
-    __DEBUG(deletedNodes->count());
-    Sudoku a(constructSudoku(deletedNodes));
-    return a;
+    Sudoku sudoku(constructSudoku(it));
+    return sudoku;
 }

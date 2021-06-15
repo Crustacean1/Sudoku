@@ -11,7 +11,7 @@ std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku)
         {
             if (sudoku._board[i][j] == 0)
             {
-                std::cout<<"   ";
+                std::cout<<" - ";
                 continue;
             }
             stream << std::setw(2) << (int)sudoku._board[i][j] << " ";
