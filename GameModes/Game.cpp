@@ -8,17 +8,24 @@ Sudoku &Game::getSudoku() { return _sudoku; }
 std::string Game::getModeName() { return _modeName; }
 Game::GameState Game::getState() { return _state; }
 
-bool Game::callbackPlaceholder(GameState) { return true; }
-Game::Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : _interface(interface), _eventQueue(eventQueue), _messageQueue(messageQueue),
+bool Game::callbackPlaceholder(GameState newState) { return true; }
+Game::Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue,std::string modeName) : _interface(interface), _eventQueue(eventQueue), _messageQueue(messageQueue),
                                                                                                                               _state(Loading),
-                                                                                                                              _stateCallbacks{callbackPlaceholder, callbackPlaceholder, callbackPlaceholder,
-                                                                                                                                              callbackPlaceholder, callbackPlaceholder, callbackPlaceholder}
+                                                                                                                              _modeName(modeName),
+                                                                                                                              _stateCallbacks{
+                                                                                                                                  &Game::callbackPlaceholder,
+                                                                                                                                  &Game::callbackPlaceholder,
+                                                                                                                                  &Game::callbackPlaceholder,
+                                                                                                                                  &Game::callbackPlaceholder,
+                                                                                                                                  &Game::callbackPlaceholder,
+                                                                                                                                  &Game::callbackPlaceholder,
+                                                                                                                              }
 {
 }
 
 void Game::changeState(GameState newState)
 {
-    if (_stateCallbacks[static_cast<unsigned char>(newState)](newState))
+    if ((this->*_stateCallbacks[static_cast<unsigned char>(newState)])(newState))
     {
         _state = newState;
     }

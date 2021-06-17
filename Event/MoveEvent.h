@@ -12,7 +12,7 @@ class MoveEvent : public Event
     Sudoku::SudokuMeta _meta;
 
 public:
-    MoveEvent();
+    MoveEvent(Sudoku::SudokuMeta meta = Sudoku::SudokuMeta::Filled);
     MoveEvent(uint8_t row, uint8_t column, uint8_t number, Sudoku::SudokuMeta meta = Sudoku::SudokuMeta::Filled);
     void read(std::istream &stream);
     void run(Game &game);

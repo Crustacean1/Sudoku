@@ -19,7 +19,9 @@ std::unordered_map<std::string, Event::EventType> BasicInterface::_events =
      {"pause", Event::EventType::PauseEvent},
      {"resume", Event::EventType::ResumeEvent},
      {"hint", Event::EventType::HintEvent},
-     {"undo", Event::EventType::UndoEvent}};
+     {"undo", Event::EventType::UndoEvent},
+     {"note", Event::EventType::NoteEvent},
+     {"exit", Event::EventType::ExitEvent}};
 
 BasicInterface::BasicInterface(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : UserInterface(eventQueue, messageQueue),
                                                                                                                         _eventQueue(eventQueue)
@@ -47,7 +49,7 @@ void BasicInterface::render(Sudoku &sudoku, Game::GameState state)
             {
                 for (uint16_t h = 0; h < sudoku.getRootSize(); ++h)
                 {
-                    auto cell = sudoku[i * sudoku.getRootSize() + j][k * sudoku.getRootSize() + h];
+                    auto cell = sudoku[k * sudoku.getRootSize() + h][i * sudoku.getRootSize() + j];
                     std::cout << _metaMarkers[state == Game::GameState::Pause][static_cast<unsigned char>(Sudoku::getMeta(cell))];
                     std::cout
                         << std::setw(2) << _sudokuTiles[state == Game::GameState::Pause][Sudoku::getNumber(cell)] << " \33[39m";
@@ -73,7 +75,7 @@ void BasicInterface::render(const Timer &timer)
 {
     if (timer._mode == Timer::Clock)
     {
-        std::cout << "time: " << timer.asSeconds() / 60 << ":" << timer.asSeconds() % 60 << std::endl;
+        std::cout << "time: " << timer.asSeconds() / 60 << ":" << std::setw(2) << timer.asSeconds() % 60 << std::endl;
     }
     else if (timer._mode == Timer::Countdown)
     {

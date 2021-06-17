@@ -25,4 +25,5 @@ int main(int argc, char **argv)
     BasicGame game(interface, eventQueue,messageQueue);
     game.init();
     game.gameLoop();
+    //game.summary()
 }

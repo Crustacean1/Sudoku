@@ -35,10 +35,10 @@ Event *Event::createEvent(EventType eventType)
     switch (eventType)
     {
     case EventType::MoveEvent:
-        return new MoveEvent();
+        return new MoveEvent(Sudoku::SudokuMeta::Filled);
         break;
     case EventType::NoteEvent:
-        return new MoveEvent(); // TODO
+        return new MoveEvent(Sudoku::SudokuMeta::Note);
         break;
     case EventType::HintEvent:
         return new HintEvent();

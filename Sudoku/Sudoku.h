@@ -70,8 +70,6 @@ public:
 
     /** Applies move with no regard for correctness*/
     void applyMove(Move &move);
-    /** Applies move if valid*/
-    bool applyMoveConditionally(Move &move);
     /** Undoes a move*/
     void retractMove(const Move &move);
 

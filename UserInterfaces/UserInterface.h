@@ -20,7 +20,7 @@ protected:
     /**
      * Queue for passing messages between Game and UserInterface derived instances
     */
-    LinkedList<std::string> _messageQueue;
+    LinkedList<std::string> &_messageQueue;
     
 public:
     template <typename T>

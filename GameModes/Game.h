@@ -61,12 +61,12 @@ protected:
     MistakeCounter _counter;
     std::string _modeName;
 
-    static bool callbackPlaceholder(GameState);
-    typedef bool (*StateCallback)(GameState);
+    bool callbackPlaceholder(GameState);
+    typedef bool (Game::*StateCallback)(GameState);
     StateCallback _stateCallbacks[6];
 
 public:
-    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue,LinkedList<std::string> &messageQueue);
+    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue,LinkedList<std::string> &messageQueue,std::string nodeName="default mode");
 
     /** Applies move to sudoku*/
     virtual void applyMove(Move &move) = 0;

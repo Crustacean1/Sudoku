@@ -71,7 +71,7 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
     {
         for (auto j = 0; j < _rootSize; ++j)
         {
-            if (getNumber(_board[rbox + i][cbox + j]) == number)
+            if (getNumber(_board[rbox * _rootSize + i][cbox * _rootSize + j]) == number)
             {
                 return false;
             }
@@ -79,31 +79,22 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
     }
     return true;
 }
-bool Sudoku::check(uint16_t row,uint16_t column,uint8_t number)
+bool Sudoku::check(uint16_t row, uint16_t column, uint8_t number)
 {
     return checkRow(row, number) &&
-        checkColumn(column, number) &&
-        checkBox(row / _rootSize, column / _rootSize, number);
-}
-bool Sudoku::applyMoveConditionally(Move &move)
-{
-    if (check(move._pos._row,move._pos._column,move._number))
-    {
-        applyMove(move);
-        return true;
-    }
-    return false;
+           checkColumn(column, number) &&
+           checkBox(row / _rootSize, column / _rootSize, number);
 }
 void Sudoku::applyMove(Move &move)
 {
-    if (move._number == 0 || move._number > _size)
+    if (move._number > _size)
     {
         return;
     }
     auto meta = getMeta((*this)[move._pos]);
-    if (meta == SudokuMeta::Empty || meta == SudokuMeta::Filled || meta == SudokuMeta::Invalid)
+    if (meta == SudokuMeta::Empty || meta == SudokuMeta::Filled || meta == SudokuMeta::Invalid || meta == SudokuMeta::Note)
     {
-        if(!check(move._pos._row,move._pos._column,move._number))
+        if (!check(move._pos._row, move._pos._column, move._number))
         {
             move._meta = SudokuMeta::Invalid;
         }

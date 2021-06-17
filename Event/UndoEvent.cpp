@@ -5,5 +5,5 @@ void UndoEvent::read(std::istream &stream)
 }
 void UndoEvent::run(Game &game)
 {
-    //game.retractMove();
+    game.retractMove();
 }
