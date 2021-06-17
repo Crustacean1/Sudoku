@@ -11,7 +11,7 @@ std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku)
         {
             if (sudoku._board[i][j] == 0)
             {
-                std::cout<<" - ";
+                std::cout << " - ";
                 continue;
             }
             stream << std::setw(2) << (int)sudoku._board[i][j] << " ";
@@ -47,7 +47,7 @@ bool Sudoku::checkRow(uint16_t row, uint8_t number) const
 {
     for (auto i = 0; i < _size; ++i)
     {
-        if (_board[row][i] == number)
+        if (getNumber(_board[row][i]) == number)
         {
             return false;
         }
@@ -58,7 +58,7 @@ bool Sudoku::checkColumn(uint16_t column, uint8_t number) const
 {
     for (auto i = 0; i < _size; ++i)
     {
-        if (_board[i][column] == number)
+        if (getNumber(_board[i][column]) == number)
         {
             return false;
         }
@@ -71,7 +71,7 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
     {
         for (auto j = 0; j < _rootSize; ++j)
         {
-            if (_board[rbox + i][cbox + j] == number)
+            if (getNumber(_board[rbox + i][cbox + j]) == number)
             {
                 return false;
             }
@@ -79,20 +79,36 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
     }
     return true;
 }
+bool Sudoku::check(uint16_t row,uint16_t column,uint8_t number)
+{
+    return checkRow(row, number) &&
+        checkColumn(column, number) &&
+        checkBox(row / _rootSize, column / _rootSize, number);
+}
 bool Sudoku::applyMoveConditionally(Move &move)
 {
-    if (checkRow(move._pos._row, move._number) &&
-        checkColumn(move._pos._column, move._number) &&
-        checkBox(move._pos._row / _rootSize, move._pos._column / _rootSize, move._number))
+    if (check(move._pos._row,move._pos._column,move._number))
     {
-        move.apply(_board);
+        applyMove(move);
         return true;
     }
     return false;
 }
 void Sudoku::applyMove(Move &move)
 {
-    move.apply(_board);
+    if (move._number == 0 || move._number > _size)
+    {
+        return;
+    }
+    auto meta = getMeta((*this)[move._pos]);
+    if (meta == SudokuMeta::Empty || meta == SudokuMeta::Filled || meta == SudokuMeta::Invalid)
+    {
+        if(!check(move._pos._row,move._pos._column,move._number))
+        {
+            move._meta = SudokuMeta::Invalid;
+        }
+        move.apply(_board);
+    }
 }
 void Sudoku::retractMove(const Move &move)
 {
@@ -104,7 +120,7 @@ bool Sudoku::isComplete() const
     {
         for (int j = 0; j < _size; ++j)
         {
-            if (_board[i][j] == 0)
+            if (getMeta(_board[i][j]) == SudokuMeta::Empty)
             {
                 return false;
             }
@@ -115,7 +131,7 @@ bool Sudoku::isComplete() const
 uint16_t Sudoku::getSize() const { return _size; }
 uint16_t Sudoku::getRootSize() const { return _rootSize; }
 
-uint8_t &Sudoku::operator[](const Coordinates &coords) { return _board[coords._row][coords._column]; }
+uint8_t &Sudoku::operator[](const SudokuCoords &coords) { return _board[coords._row][coords._column]; }
 
 Sudoku::Sudoku(const Sudoku &sudoku) : _rootSize(sudoku._rootSize), _size(sudoku._size)
 {
@@ -149,4 +165,16 @@ Sudoku &Sudoku::operator=(Sudoku &&sudoku)
     _board = sudoku._board;
     sudoku._board = nullptr;
     return *this;
+}
+uint8_t Sudoku::getNumber(uint8_t _cell)
+{
+    return _cell >> 3;
+}
+Sudoku::SudokuMeta Sudoku::getMeta(uint8_t _cell)
+{
+    return static_cast<Sudoku::SudokuMeta>(_cell & 7);
+}
+uint8_t Sudoku::constructCell(uint8_t number, SudokuMeta meta)
+{
+    return static_cast<uint8_t>(meta) + (number << 3);
 }

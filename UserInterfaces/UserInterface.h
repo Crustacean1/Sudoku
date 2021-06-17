@@ -9,7 +9,6 @@ class EventQueue;
 class Hint;
 class Timer;
 class MistakeCounter;
-class CountdownTimer;
 class Event;
 
 /**

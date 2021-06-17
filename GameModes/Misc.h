@@ -4,18 +4,6 @@
 #include <chrono>
 #include "Sudoku/Sudoku.h"
 
-/** Minor class representing timer*/
-class Timer
-{
-    std::chrono::steady_clock::time_point _beg;
-    bool _active;
-
-public:
-    Timer();
-    void start();
-    bool isActive() const;
-    unsigned int asSeconds() const;
-};
 /**Minor class representing hints mechanism*/
 class Hint
 {
@@ -24,7 +12,7 @@ class Hint
 
 public:
     Hint(unsigned int hintCount = 0);
-    bool uncover(Coordinates pos, Sudoku &filledSudoku, Sudoku &sudoku);
+    bool uncover(SudokuCoords pos, Sudoku &filledSudoku, Sudoku &sudoku);
     unsigned int getHintCount() const;
     unsigned int getMaxHintCount() const;
 };
@@ -43,14 +31,17 @@ public:
     bool gameOver() const;
 };
 /** Minor class representing countdown timer*/
-class CountdownTimer
+class Timer
 {
     std::chrono::steady_clock::time_point _beg;
     std::chrono::duration<int, std::ratio<1>> _limit;
     bool _active;
 
 public:
-    CountdownTimer(unsigned int timeLimit = 0);
+    enum TimerMode{Countdown,Clock};
+    TimerMode _mode;
+
+    Timer(unsigned int timeLimit = 0,TimerMode mode = Clock);
     void start();
     bool isActive() const;
     bool isOver() const;

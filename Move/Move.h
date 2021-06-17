@@ -12,9 +12,10 @@ private:
     uint8_t _prevNumber;
 
 public:
-    Move(Coordinates pos, uint8_t number);
+    Move(SudokuCoords pos, uint8_t number,Sudoku::SudokuMeta meta);
 
-    Coordinates _pos;
+    Sudoku::SudokuMeta _meta;
+    SudokuCoords _pos;
     uint8_t _number;
 
     void apply(uint8_t **board);

@@ -37,7 +37,10 @@ protected:
     /**
      * Pointer to interface used by game mode
      */
-    UserInterface& _interface;
+    UserInterface &_interface;
+
+    LinkedList<std::unique_ptr<Event>> &_eventQueue;
+    LinkedList<std::string> &_messageQueue;
 
     GameState _state;
 
@@ -56,24 +59,31 @@ protected:
     Hint _hint;
     Timer _timer;
     MistakeCounter _counter;
-    CountdownTimer _countdownTimer;
+    std::string _modeName;
+
+    static bool callbackPlaceholder(GameState);
+    typedef bool (*StateCallback)(GameState);
+    StateCallback _stateCallbacks[6];
 
 public:
-    template <typename T>
-    Game(UserInterface &interface, LinkedList<T> &eventQueue) : _interface(interface), _state(Loading) {}
+    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue,LinkedList<std::string> &messageQueue);
 
     /** Applies move to sudoku*/
     virtual void applyMove(Move &move) = 0;
     /** Undoes a last move*/
     virtual void retractMove() = 0;
     /** Reveals one hidden cell*/
-    virtual void askForHint(Coordinates coords) = 0;
+    virtual void askForHint(SudokuCoords coords) = 0;
 
-    Hint getHint() { return _hint; }
-    Timer getTimer() { return _timer; }
-    MistakeCounter getCounter() { return _counter; }
-    CountdownTimer getCountdownTimer() { return _countdownTimer; }
-    Sudoku &getSudoku() { return _sudoku; }
+    Hint getHint();
+    Timer getTimer();
+    MistakeCounter getCounter();
+    Sudoku &getSudoku();
+    std::string getModeName();
+    GameState getState();
+
+    void changeState(GameState newState);
+    static void flushEvents(Game *game);
 
     virtual void init() = 0;
     virtual void gameLoop() = 0;

@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <random>
 #include "../LinkedNode/LinkedNode.h"
+#include <tuple>
 
 class Sudoku;
 
@@ -67,7 +68,7 @@ private:
 
 public:
     SudokuGenerator(uint16_t rootSize);
-    Sudoku generate();
+    std::tuple<Sudoku,Sudoku> generate();
     ~SudokuGenerator();
 };
 

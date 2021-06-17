@@ -1,5 +1,6 @@
 #include "../SudokuGenerator/SudokuGenerator.h"
 #include "../Sudoku/Sudoku.h"
+#include "LinkedList/LinkedList.h"
 #include <cstring>
 #include <iostream>
 #include <chrono>
@@ -10,7 +11,7 @@
 // 3976840948
 // 4082856991 for 5
 SudokuGenerator::SudokuGenerator(uint16_t rootSize) : _rootSize(rootSize), _size(_rootSize * _rootSize),
-                                                      _seed(1 ? std::chrono::system_clock::now().time_since_epoch().count() : 3334395441),
+                                                      _seed(1 ? std::chrono::system_clock::now().time_since_epoch().count() : 2165206914),
                                                       _engine(_seed), _sudokuDist(1, _rootSize * _rootSize)
 {
     std::cout << "seed: " << _seed << std::endl;
@@ -134,7 +135,6 @@ bool SudokuGenerator::algorithmX(SudokuNode *header, LinkedNode<SudokuNode *> *s
 
     do
     {
-        //__ASSERT(it->_value-=>header!=it->_value->header);
         header->col->popIn();
         dropNode(it->_value);
 
@@ -197,7 +197,7 @@ void SudokuGenerator::restoreNode(SudokuNode *node)
 
 void SudokuGenerator::decode(SudokuNode *node, const uint16_t &size, uint8_t **tab)
 {
-    tab[node->value % size][(node->value / size) % size] = ((node->value / size) / size) + 1;
+    tab[node->value % size][(node->value / size) % size] = Sudoku::constructCell(((node->value / size) / size) + 1,Sudoku::SudokuMeta::Default);
 }
 
 Sudoku SudokuGenerator::constructSudoku(LinkedNode<SudokuNode *> *solution)
@@ -213,7 +213,7 @@ Sudoku SudokuGenerator::constructSudoku(LinkedNode<SudokuNode *> *solution)
     return s;
 }
 
-Sudoku SudokuGenerator::generate()
+std::tuple<Sudoku,Sudoku> SudokuGenerator::generate()
 {
     auto matrix = generateSparseConstraintMatrix();
     LinkedNode<SudokuNode *> *solution = new LinkedNode<SudokuNode *>(new SudokuNode);
@@ -227,15 +227,13 @@ Sudoku SudokuGenerator::generate()
     delete solution->prev()->_value;
     delete solution->prev()->erase();
 
-    Sudoku a(constructSudoku(solution));
-    std::cout << a << std::endl;
-
+    Sudoku src(constructSudoku(solution));
     Sudoku sudoku(generateMinimalSudoku(matrix, solution));
 
     //cleaning up
-    //delete solution;
-    //disposeSparseConstraintMatrix(matrix);
-    return sudoku;
+    disposeSparseConstraintMatrix(matrix);
+
+    return std::tie(src,sudoku);
 }
 
 bool SudokuGenerator::isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity)
@@ -309,14 +307,18 @@ void SudokuGenerator::revertSolution(LinkedNode<SudokuNode *> *solution)
 Sudoku SudokuGenerator::generateMinimalSudoku(SudokuNode *matrix, LinkedNode<SudokuNode *> *solutions)
 {
     uint8_t ambiguity = 0;
-    //LinkedNode<SudokuNode *> *deletedNodes = new LinkedNode<SudokuNode *>(new SudokuNode());
+
     bool filled = false;
     LinkedNode<SudokuNode *> *it, *end;
-    it = end = solutions;
+    auto shift = std::uniform_int_distribution<int>(0, solutions->count())(_engine);
+    LinkedList<LinkedNode<SudokuNode *> *> deletedNodes;
+
+    it = end = solutions->next(shift);
     while (!filled)
     {
         filled = true;
         end = it->prev();
+
         do
         {
             it->popOut();
@@ -329,12 +331,19 @@ Sudoku SudokuGenerator::generateMinimalSudoku(SudokuNode *matrix, LinkedNode<Sud
             }
             else
             {
+                deletedNodes.push_back(it);
                 filled = false;
                 revertSolution(it->next());
             }
             it = it->next();
         } while (it != end->next());
     }
+
     Sudoku sudoku(constructSudoku(it));
+
+    deletedNodes.getRoot()->iterateForward([](LinkedNode<SudokuNode *> *node)
+                                           { delete node->erase(); });
+    delete it;
+
     return sudoku;
 }

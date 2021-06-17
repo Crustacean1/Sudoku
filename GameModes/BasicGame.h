@@ -10,13 +10,12 @@ class BasicGame : public Game
 {
     Hint hints;
     Timer timer;
-    LinkedList<std::unique_ptr<Event>> & _eventQueue;
 public:
-    BasicGame(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &queue);
+    BasicGame(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue,LinkedList<std::string> &messageQueue);
     void init();
     void applyMove(Move &move);
     void retractMove();
-    void askForHint(Coordinates coords);
+    void askForHint(SudokuCoords coords);
 
     void changeState(Game::GameState &newState);
 

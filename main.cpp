@@ -6,22 +6,23 @@
 int main(int argc, char **argv)
 {
     
-    int a = (argc > 1 && argv[1][0] > '0' && argv[1][0] < '9') ? (argv[1][0] - '0') : 3;
+    /*int a = (argc > 1 && argv[1][0] > '0' && argv[1][0] < '9') ? (argv[1][0] - '0') : 3;
     SudokuGenerator generator(a);
     try
     {
         auto sudoku = generator.generate();
-        std::cout << sudoku << std::endl;
+        std::cout << std::get<0>(sudoku) << std::endl;
+        std::cout << std::get<1>(sudoku) << std::endl;
     }
     catch (const std::string &e)
     {
         std::cerr << e << '\n';
-    }/*
+    }*/
     LinkedList<std::unique_ptr<Event>> eventQueue;
     LinkedList<std::string> messageQueue;
     BasicInterface bInterface(eventQueue,messageQueue);
     UserInterface &interface(bInterface);
-    BasicGame game(interface, eventQueue);
+    BasicGame game(interface, eventQueue,messageQueue);
     game.init();
-    game.gameLoop();*/
+    game.gameLoop();
 }

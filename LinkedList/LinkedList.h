@@ -33,6 +33,8 @@ public:
     template <typename... V, typename F>
     void reverseIterate(const F &function, V &...v);
 
+    void clear();
+
     uint32_t count();
 };
 template <typename T>
@@ -84,7 +86,7 @@ void LinkedList<T>::iterate(const F &f, V &...v)
     auto ptr = _root;
     do
     {
-        f(ptr->getValue(), v...);
+        f(ptr->_value, v...);
         ptr = ptr->next();
     } while (ptr != _root);
 }
@@ -144,5 +146,12 @@ uint32_t LinkedList<T>::count()
     {
     }
     return count;
+}
+template<typename T>
+void LinkedList<T>::clear()
+{
+    if(_root==nullptr){return;}
+    delete _root;
+    _root = nullptr;
 }
 #endif /*LINKEDLIST*/
