@@ -25,7 +25,7 @@ void Rectangle::setGlobalPosition(sf::Vector2f position)
     _globalPosition = position;
     _shape.setPosition(_localPosition + _globalPosition);
 }
-void Rectangle::render(sf::RenderWindow &window)
+void Rectangle::render(sf::RenderWindow &window) const
 {
     window.draw(_shape);
 }

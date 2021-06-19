@@ -15,7 +15,7 @@ namespace GUI
 
     public:
         Rectangle(sf::Vector2f position, sf::Vector2f size);
-        void render(sf::RenderWindow &window);
+        void render(sf::RenderWindow &window) const;
         void setLocalPosition(sf::Vector2f position);
         void setGlobalPosition(sf::Vector2f position);
         sf::IntRect getBoundingBox();
