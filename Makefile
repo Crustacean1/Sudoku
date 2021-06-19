@@ -1,13 +1,14 @@
-sources := $(wildcard *.cpp) $(wildcard */*.cpp)
-headers := ${wildcard *.h} ${wildcard */*.h}
-objects := $(sources:%.cpp=%.o)
-target := $(shell pwd | xargs basename)
+SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp)
+OBJECTS := $(SOURCES:.cpp=.o)
+TARGET := $(shell pwd | xargs basename)
+CXX = g++
+CXXFLAGS = -g -Wall -Werror -std=c++20 -MMD -I ./
+DEPENDS = ${OBJECTS:.o=.d} main.d
 
-${target}: ${objects}
-	g++ -g -std=c++20 ${objects}  -o ${target}
+${TARGET}: ${OBJECTS}
+	g++ -g -std=c++20 ${OBJECTS}  -o ${TARGET} -lsfml-graphics -lsfml-window -lsfml-system
 
-%.o: %.cpp ${headers}
-	g++ -g  -Wall -Werror -std=c++20 -I ./ -c $< -o $(<:%.cpp=%.o)
+-include ${DEPENDS}
 
 clean:
 	rm -f *.o

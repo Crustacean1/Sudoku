@@ -1,5 +1,6 @@
 #include "GameModes/BasicGame.h"
-#include "UserInterfaces/BasicInterface.h"
+//#include "UserInterfaces/BasicInterface.h"
+#include "UserInterfaces/BasicGui.h"
 #include "Event/Event.h"
 #include "SudokuGenerator/SudokuGenerator.h"
 
@@ -20,8 +21,9 @@ int main(int argc, char **argv)
     }*/
     LinkedList<std::unique_ptr<Event>> eventQueue;
     LinkedList<std::string> messageQueue;
-    BasicInterface bInterface(eventQueue,messageQueue);
-    UserInterface &interface(bInterface);
+    //BasicInterface bInterface(eventQueue,messageQueue);
+    BasicGui gInterface(eventQueue,messageQueue);
+    UserInterface &interface(gInterface);
     BasicGame game(interface, eventQueue,messageQueue);
     game.init();
     game.gameLoop();

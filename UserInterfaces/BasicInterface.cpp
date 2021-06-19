@@ -23,8 +23,7 @@ std::unordered_map<std::string, Event::EventType> BasicInterface::_events =
      {"note", Event::EventType::NoteEvent},
      {"exit", Event::EventType::ExitEvent}};
 
-BasicInterface::BasicInterface(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : UserInterface(eventQueue, messageQueue),
-                                                                                                                        _eventQueue(eventQueue)
+BasicInterface::BasicInterface(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : UserInterface(eventQueue, messageQueue)
 {
 }
 
@@ -96,7 +95,7 @@ void BasicInterface::display()
     std::cout << std::flush;
 }
 
-void BasicInterface::initiate()
+void BasicInterface::initiate(Game & game)
 {
 }
 void BasicInterface::clear()

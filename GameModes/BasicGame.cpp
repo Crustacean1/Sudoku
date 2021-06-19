@@ -73,6 +73,7 @@ void BasicGame::init()
     _timer.start();
     _stateCallbacks[static_cast<unsigned int>(GameState::Pause)] = (StateCallback)&BasicGame::stopTimer;
     _stateCallbacks[static_cast<unsigned int>(GameState::Play)] = (StateCallback)&BasicGame::restartTimer;
+    _interface.initiate(*this);
 }
 void BasicGame::gameLoop()
 {

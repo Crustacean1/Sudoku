@@ -17,19 +17,20 @@ class Event;
 class UserInterface
 {
 protected:
+    LinkedList<std::unique_ptr<Event>> &_eventQueue;
     /**
      * Queue for passing messages between Game and UserInterface derived instances
     */
     LinkedList<std::string> &_messageQueue;
-    
+
 public:
     template <typename T>
-    UserInterface(LinkedList<T> &eventQueue, LinkedList<std::string> &messageQueue) : _messageQueue(messageQueue) {}
+    UserInterface(LinkedList<T> &eventQueue, LinkedList<std::string> &messageQueue) : _eventQueue(eventQueue), _messageQueue(messageQueue) {}
 
     /**
      * Invoked before rendering of UI
      */
-    virtual void initiate() = 0;
+    virtual void initiate(Game &game) = 0;
 
     /**
      * Clears screen before drawing
@@ -40,7 +41,7 @@ public:
      * Renders, or in case of CLI displays, UI elements. Game rendered is specified to have select few base components, such as: SudokuBoard,
      * Timer or MistakeCounter and others that will be drawn by UI instance
      */
-    virtual void render(Game & game) = 0;
+    virtual void render(Game &game) = 0;
 
     /**
      * Displays, or in case of CLI flushes, rendered elements. Meaningful mainly in GUI applications
