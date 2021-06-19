@@ -3,11 +3,12 @@
 
 BasicGui::BasicGui(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue)
     : UserInterface(eventQueue, messageQueue),
-      _node(sf::Vector2f(100, 50), GUI::LayoutMode::Horizontalgt,
-            GUI::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(50, 100)),
-            GUI::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(100, 50)),
-            GUI::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(50, 50)))
+      _node(sf::IntRect(0,0,300,100), GUI::LayoutMode::Horizontal,
+            std::unique_ptr<GUI::Rectangle>(new GUI::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(50, 100))),
+            std::unique_ptr<GUI::Rectangle>(new GUI::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(100, 50))),
+            std::unique_ptr<GUI::Rectangle>(new GUI::Rectangle(sf::Vector2f(0, 0), sf::Vector2f(50, 50))))
 {
+    _node.setGlobalPosition(sf::Vector2f(150,50));
 }
 
 void BasicGui::initiate(Game &game)
