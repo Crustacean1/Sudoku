@@ -1,31 +1,33 @@
 #include "Rectangle.h"
 #include <random>
-using namespace GUI;
 
 std::default_random_engine Rectangle::__engine(2137);
 
-Rectangle::Rectangle(sf::Vector2f position, sf::Vector2f size) : _shape(size), _localPosition(position), _globalPosition(sf::Vector2f(0, 0))
+Rectangle::Rectangle(sf::Vector2f position, sf::Vector2f size) : _shape(size)
 {
-    _shape.setPosition(_localPosition + _globalPosition);
-    _shape.setOrigin(size/2.f);
-    std::uniform_int_distribution<unsigned int> dist(0,255);
-    _shape.setFillColor(sf::Color(dist(__engine),dist(__engine),dist(__engine)));
+
+    _shape.setPosition(position);
+
+    _shape.setOrigin(sf::Vector2f(_shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().height / 2));
+    std::uniform_int_distribution<unsigned int> dist(0, 255);
+    _shape.setFillColor(sf::Color(dist(__engine), dist(__engine), dist(__engine)));
 }
-sf::IntRect Rectangle::getBoundingBox()
+
+Rectangle::Rectangle(const sf::RectangleShape &shape)
+{
+    _shape = shape;
+}
+sf::IntRect Rectangle::getBoundingBox() const
 {
     return (sf::IntRect)_shape.getLocalBounds();
 }
-void Rectangle::setLocalPosition(sf::Vector2f position)
+void Rectangle::setPosition(const sf::Vector2f &position)
 {
-    _localPosition = position;
-    _shape.setPosition(_localPosition + _globalPosition);
+    _shape.setPosition(position);
 }
-void Rectangle::setGlobalPosition(sf::Vector2f position)
-{
-    _globalPosition = position;
-    _shape.setPosition(_localPosition + _globalPosition);
-}
-void Rectangle::render(sf::RenderWindow &window) const
+sf::Vector2f Rectangle::getPosition() const { return _shape.getPosition(); }
+
+void Rectangle::render(sf::RenderWindow &window)
 {
     window.draw(_shape);
 }

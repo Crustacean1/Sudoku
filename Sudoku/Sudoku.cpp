@@ -14,7 +14,7 @@ std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku)
                 std::cout << " - ";
                 continue;
             }
-            stream << std::setw(2) << (int)sudoku._board[i][j] << " ";
+            stream << std::setw(2) << (int)Sudoku::getNumber(sudoku._board[i][j]) << " ";
         }
         stream << "\n";
     }

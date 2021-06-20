@@ -3,13 +3,15 @@
 
 #include "UserInterface.h"
 #include "GUI/Rectangle.h"
-#include "GUI/GUINode.h"
 #include <SFML/Graphics.hpp>
+#include "GUI/Drawable.h"
+#include <memory>
 
 class BasicGui : public UserInterface
 {
     sf::RenderWindow _window;
-    GUI::LayoutMode mode;
+    std::unique_ptr<Drawable> _guiRoot;
+    std::unique_ptr<Drawable> _sudokuBoard;
     //std::unique_ptr<GUI::GuiNode<GUI::GuiNode, GUI::GuiNode, GUI::GuiNode>> _node;
 
 public:

@@ -26,7 +26,7 @@ public:
     void pop_front();
     void pop_back();
 
-    LinkedNode<T> *getRoot() { return _root; }
+    LinkedNode<T> *getRoot() const { return _root; }
     template <typename... V, typename F>
     void iterate(const F &function, V &...v);
 

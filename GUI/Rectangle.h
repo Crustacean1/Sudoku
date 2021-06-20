@@ -1,25 +1,22 @@
 #ifndef RECTANGLE
 #define RECTANGLE
 
-#include <SFML/Graphics.hpp>
+#include "Drawable.h"
 #include <random>
-namespace GUI
-{
-    class Rectangle
+
+    class Rectangle : public Drawable
     {
         sf::RectangleShape _shape;
 
-        sf::Vector2f _localPosition;
-        sf::Vector2f _globalPosition;
         static std::default_random_engine __engine;
 
     public:
         Rectangle(sf::Vector2f position, sf::Vector2f size);
-        void render(sf::RenderWindow &window) const;
-        void setLocalPosition(sf::Vector2f position);
-        void setGlobalPosition(sf::Vector2f position);
-        sf::IntRect getBoundingBox();
+        Rectangle(const sf::RectangleShape &shape);
+        void render(sf::RenderWindow &window);
+        void setPosition(const sf::Vector2f &position);
+        sf::Vector2f getPosition() const;
+        sf::IntRect getBoundingBox() const;
     };
-};
 
 #endif /*RECTANGLE*/
