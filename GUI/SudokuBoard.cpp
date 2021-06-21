@@ -2,65 +2,36 @@
 #include <string>
 #include <iostream>
 
-sf::RenderTexture SudokuBoard::__digitTexture;
-sf::RectangleShape SudokuBoard::__digits[__root*__root*__root*__root+1];
-float SudokuBoard::__size = 50;
-
-SudokuBoard::SudokuBoard(Sudoku &sudoku, sf::Vector2f position, float size) : _size(size), _gap(2), _position(position), _sudoku(sudoku)
+SudokuBoard::SudokuBoard(Sudoku &sudoku, sf::RenderTexture &texture, float size) : _size(size), _gap(2), _sudoku(sudoku),
+                                                                                   _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 1)),
+                                                                                   _transform(sf::Transform::Identity)
 {
-    _boundingBox.width = _boundingBox.height = _sudoku.getSize() * _size + (_sudoku.getSize() - 1) * _gap;
-    _boundingBox.left = _position.x - _boundingBox.width / 2;
-    _boundingBox.top = _position.y - _boundingBox.height / 2;
+    createDigits(texture.getTexture());
+    _boundingBox.width = _boundingBox.height = _sudoku.getSize() * _size + (_sudoku.getSize() - 1) * _gap + (_sudoku.getRootSize() - 1) * _gap;
+    _boundingBox.left = _boundingBox.top = 0;
 }
 
-void SudokuBoard::createTexture()
+void SudokuBoard::adjustTexture(unsigned int index, unsigned int number)
 {
-    __digitTexture.create(__size * (__root * __root + 1), __size);
-    __digitTexture.clear(sf::Color::Green);
-    sf::Font font;
-    font.loadFromFile("font.ttf");
-    sf::Text digit;
-    digit.setFont(font);
-    digit.setCharacterSize(__size / 2);
-    sf::FloatRect bounds;
-    for (unsigned int i = 1; i <= __root * __root; ++i)
+    sf::Vector2f vertices[4] = {sf::Vector2f(0, 0),
+                                sf::Vector2f(_digitSize, 0),
+                                sf::Vector2f(_digitSize, _digitSize),
+                                sf::Vector2f(0, _digitSize)};
+    for (int i = 0; i < 4; ++i)
     {
-        digit.setString(std::to_string(i));
-        bounds = digit.getGlobalBounds();
-        digit.setOrigin(sf::Vector2f(bounds.width / 2, bounds.height / 2));
-        digit.setPosition(sf::Vector2f(__size * i + __size / 2, __size / 2));
-        __digitTexture.draw(digit);
-    }
-    __digitTexture.display();
-}
-void SudokuBoard::createDigits()
-{
-    auto count = __root * __root * __root * __root;
-    for (unsigned int i = 0; i <= count; ++i)
-    {
-        __digits[i].setTexture(&__digitTexture.getTexture());
-        __digits[i].setTextureRect(sf::IntRect(i * __size, 0, __size, __size));
-        __digits[i].setSize(sf::Vector2f(__size, __size));
-        __digits[i].setOrigin(sf::Vector2f(__size / 2, __size / 2));
+        _digits[index * 4 + i].texCoords = vertices[i] + sf::Vector2f(_digitSize, 0) * (float)number;
     }
 }
-
-void SudokuBoard::init()
+void SudokuBoard::createDigits(sf::Texture texure)
 {
-    createTexture();
-    createDigits();
-}
-sf::RectangleShape *SudokuBoard::getDigits()
-{
-    return __digits;
-}
-void SudokuBoard::render(sf::RenderWindow &window)
-{
+    _digits.resize(_sudoku.getSize() * _sudoku.getSize());
+    _digits.setPrimitiveType(sf::Quads);
+    sf::Vector2f vertices[4] = {sf::Vector2f(0, 0),
+                                sf::Vector2f(_size, 0),
+                                sf::Vector2f(_size, _size),
+                                sf::Vector2f(0, _size)};
     auto root = _sudoku.getRootSize();
-    auto pos = _position - sf::Vector2f(_boundingBox.width / 2 - _size / 2, _boundingBox.height / 2 - _size / 2);
-    sf::RectangleShape *cell = __digits;
-    auto scale = sf::Vector2f(1,1) * (_size/__size);
-    for (int i = 0; i < root; ++i)
+    for (int i = 0, c = 0; i < root; ++i)
     {
         for (int j = 0; j < root; ++j)
         {
@@ -68,24 +39,31 @@ void SudokuBoard::render(sf::RenderWindow &window)
             {
                 for (int l = 0; l < root; ++l)
                 {
-                    cell = __digits + Sudoku::getNumber(_sudoku[j * root + l][i * root + k]);
-                    cell->setPosition(sf::Vector2f(i * root + k, j * root + l) * (_size + _gap) + pos);
-                    cell->setScale(scale);
-                    window.draw(*cell);
+                    for (int m = 0; m < 4; ++m, ++c)
+                    {
+                        _digits[c].position = vertices[m] + sf::Vector2f(root * _size * i + i * _gap + (_size + _gap) * k, root * _size * j + j * _gap + (_size + _gap) * l);
+                    }
+                    adjustTexture(c / 4, Sudoku::getNumber(_sudoku[i * root + k][j * root + l]));
                 }
             }
         }
     }
 }
+
+void SudokuBoard::render(sf::RenderWindow &window)
+{
+    window.draw(_digits);
+}
 sf::IntRect SudokuBoard::getBoundingBox() const
 {
-    return _boundingBox;
+    auto bbox = _digits.getBounds();
+    return sf::IntRect(_position.x - bbox.width / 2, _position.y - bbox.height / 2, bbox.width, bbox.height);
 }
 void SudokuBoard::setPosition(const sf::Vector2f &position)
 {
     _position = position;
-    _boundingBox.left = _position.x - _boundingBox.width / 2;
-    _boundingBox.top = _position.y - _boundingBox.height / 2;
+    _transform = sf::Transform::Identity;
+    _transform.translate(_position);
 }
 sf::Vector2f SudokuBoard::getPosition() const
 {

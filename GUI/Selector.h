@@ -1,16 +1,22 @@
 #ifndef SELECTOR
 #define SELECTOR
 
-#include "Drawable.h"
+#include "GUI/Drawable.h"
 #include "SudokuBoard.h"
-#include "HorizontalLayout.h"
+#include "Sudoku/Sudoku.h"
+#include "GUI/Layout.h"
 
 class BasicGui;
 
-class Selector : public HorizontalLayout
+class Selector : public Drawable
 {
 public:
-    Selector(sf::Vector2f dimensions, sf::RectangleShape *digits, unsigned char count);
+    Selector(Sudoku &sudoku, sf::RenderTexture&digits);
+
+    void render(sf::RenderWindow & window);
+    sf::Vector2f getPosition() const;
+    void setPosition(const sf::Vector2f & position);
+    sf::IntRect getBoundingBox() const;
 };
 
 #endif /*SELECTOR*/

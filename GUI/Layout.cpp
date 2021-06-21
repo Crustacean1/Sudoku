@@ -1,39 +1,34 @@
 #include "Layout.h"
 
-void BaseLayout::renderSelf(const std::unique_ptr<Drawable> &drawable, sf::RenderWindow &window)
+sf::Vector2f Vertical::getGap(const sf::IntRect &outer, const sf::IntRect &inner, unsigned char root)
 {
-    drawable->render(window);
+    return sf::Vector2f((outer.width - inner.width) / (root + 1), (outer.height - inner.height) / 2);
 }
-void BaseLayout::getBounds(const std::unique_ptr<Drawable> &drawable, sf::Vector2i &max, sf::Vector2i &sum)
+sf::Vector2f Vertical::getBegPos(const sf::IntRect &outer, const sf::Vector2f &gap)
 {
-    auto bbox = drawable->getBoundingBox();
-    sum.x += bbox.width;
-    sum.y += bbox.height;
-    max.x = std::max(max.x, bbox.width);
-    max.y = std::max(max.y, bbox.height);
+    return sf::Vector2f(outer.left, outer.top + outer.height / 2) + gap;
 }
-void BaseLayout::adjustSelfHorizontally(const std::unique_ptr<Drawable> &drawable, sf::Vector2f &pos, sf::Vector2f &gap)
-{
-    auto bbox = drawable->getBoundingBox();
-    drawable->setPosition(pos + sf::Vector2f(bbox.width / 2, 0));
-    pos += sf::Vector2f(bbox.width + gap.x, 0);
-}
-void BaseLayout::adjustSelfVertically(const std::unique_ptr<Drawable> &drawable, sf::Vector2f &pos, sf::Vector2f &gap)
+
+void Vertical::adjustSelf(const std::unique_ptr<Drawable> &drawable, sf::Vector2f &pos, sf::Vector2f &gap)
 {
     auto bbox = drawable->getBoundingBox();
     drawable->setPosition(pos + sf::Vector2f(0, bbox.height / 2));
     pos += sf::Vector2f(0, bbox.height + gap.y);
 }
 
-void BaseLayout::render(sf::RenderWindow &window)
+sf::Vector2f Horizontal::getGap(const sf::IntRect &outer, const sf::IntRect &inner, unsigned char root)
 {
-    _children.iterate(BaseLayout::renderSelf, window);
+    return sf::Vector2f((outer.width - inner.width) / 2, (outer.height - inner.height) / (root + 1));
 }
-sf::IntRect BaseLayout::getBoundingBox() const
+
+sf::Vector2f Horizontal::getBegPos(const sf::IntRect &outer, const sf::Vector2f &gap)
 {
-    return _outerBoundingBox;
+    return sf::Vector2f(outer.left + outer.width / 2, outer.top) + gap;
 }
-sf::Vector2f BaseLayout::getPosition() const
+
+void Horizontal::adjustSelf(const std::unique_ptr<Drawable> &drawable, sf::Vector2f &pos, sf::Vector2f &gap)
 {
-    return sf::Vector2f(_outerBoundingBox.left + _outerBoundingBox.width / 2, _outerBoundingBox.top + _outerBoundingBox.height / 2);
+    auto bbox = drawable->getBoundingBox();
+    drawable->setPosition(pos + sf::Vector2f(bbox.width / 2, 0));
+    pos += sf::Vector2f(bbox.width + gap.x, 0);
 }

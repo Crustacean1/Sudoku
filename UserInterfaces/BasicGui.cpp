@@ -1,9 +1,6 @@
 #include "BasicGui.h"
 #include "Event/Event.h"
-#include "GUI/SudokuBoard.h"
-#include "GUI/HorizontalLayout.h"
-#include "GUI/VerticalLayout.h"
-#include "GUI/Selector.h"
+#include "GUI/Sudoku/SudokuPanel.h"
 #include <iostream>
 
 BasicGui::BasicGui(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue)
@@ -15,13 +12,13 @@ BasicGui::BasicGui(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<st
 
 void BasicGui::initiate(Game &game)
 {
-    SudokuBoard::init();
     std::cout << game.getSudoku() << std::endl;
     auto dimensions = _window.getSize();
     auto rect = std::unique_ptr<Rectangle>(new Rectangle(sf::Vector2f(0, 0), sf::Vector2f(100, 100)));
-    _sudokuBoard = std::unique_ptr<SudokuBoard>(new SudokuBoard(game.getSudoku(), sf::Vector2f(0, 0)));
-    auto selector = std::unique_ptr<Selector>(new Selector(sf::Vector2f(0,0), SudokuBoard::getDigits(), (unsigned char)game.getSudoku().getSize()));
-    _guiRoot = std::unique_ptr<VerticalLayout>(new VerticalLayout(sf::IntRect(0, 0, dimensions.x, dimensions.y), _sudokuBoard, selector));
+    auto sudokuPanel = std::unique_ptr<SudokuPanel>(new SudokuPanel(_window,game.getSudoku()));
+    //_sudokuBoard = std::unique_ptr<SudokuBoard>(new SudokuBoard(game.getSudoku(), sf::Vector2f(0, 0)));
+    //auto selector = std::unique_ptr<Selector>(new Selector(sf::Vector2f(0,0), SudokuBoard::getDigits(), (unsigned char)game.getSudoku().getSize()));
+    _guiRoot = std::unique_ptr<Layout<Vertical>>(new Layout<Vertical>(sf::IntRect(0, 0, dimensions.x, dimensions.y), sudokuPanel));
 }
 void BasicGui::render(Game &game)
 {
