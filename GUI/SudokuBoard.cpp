@@ -10,7 +10,7 @@ sf::Color SudokuBoard::__colors[6] = {sf::Color::White,
                                       sf::Color::Blue,
                                       sf::Color::Red};
 SudokuBoard::SudokuBoard(Sudoku &sudoku, sf::RenderTexture &texture, float size) : _renderState(&texture.getTexture()), _size(size), _gap(2), _sudoku(sudoku),
-                                                                                   _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 2))
+                                                                                   _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 2)), _highlight(-1)
 
 {
     copyBoard();
@@ -40,6 +40,10 @@ void SudokuBoard::adjustTile(unsigned int index, unsigned int number)
         _tiles[index * 4 + i].color = __colors[static_cast<unsigned char>(Sudoku::getMeta(number))];
     }
 }
+void SudokuBoard::setColor(unsigned int index, sf::Color color)
+{
+    _tiles[index * 4].color = _tiles[index * 4 + 1].color = _tiles[index * 4 + 2].color = _tiles[index * 4 + 3].color = color;
+}
 void SudokuBoard::createTiles()
 {
     _tiles.resize(_sudoku.getSize() * _sudoku.getSize() * 4);
@@ -50,7 +54,7 @@ void SudokuBoard::createTiles()
                                 sf::Vector2f(_size, 0),
                                 sf::Vector2f(_size, _size),
                                 sf::Vector2f(0, _size)};
-    sf::Vector2f backgroundOffset = sf::Vector2f( _digitSize,0) * ((float)_sudoku.getSize()+1);
+    sf::Vector2f backgroundOffset = sf::Vector2f(_digitSize, 0) * ((float)_sudoku.getSize() + 1);
     auto root = _sudoku.getRootSize();
     for (int i = 0, c = 0; i < root; ++i)
     {
@@ -125,8 +129,32 @@ void SudokuBoard::updateTiles()
                 adjustTile(i * root * root + j, _sudoku[i][j]);
                 _board[i][j] = _sudoku[i][j];
             }
+            if (Sudoku::getNumber(_sudoku[i][j]) == _highlight)
+            {
+                setColor(i * root * root + j, sf::Color(0, 100, 200));
+            }
         }
     }
+}
+void SudokuBoard::resetTiles()
+{
+    auto root = _sudoku.getRootSize();
+    for (int i = 0; i < _sudoku.getSize(); ++i)
+    {
+        for (int j = 0; j < _sudoku.getSize(); ++j)
+        {
+            adjustTile(i * root * root + j, _sudoku[i][j]);
+        }
+    }
+}
+void SudokuBoard::setHighlight(unsigned char highlight)
+{
+    if (highlight == _highlight)
+    {
+        return;
+    }
+    _highlight = highlight;
+    resetTiles();
 }
 SudokuBoard::~SudokuBoard()
 {

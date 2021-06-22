@@ -2,7 +2,7 @@
 #include "Event/MoveEvent.h"
 #include "Button.h"
 
-SudokuPanel::SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, LinkedList<std::unique_ptr<Event>> &eventQueue) : Layout<Vertical>(sf::IntRect(0, 0, 0, window.getSize().y * 0.75)), _size(50), _eventQueue(eventQueue)
+SudokuPanel::SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, LinkedList<std::unique_ptr<Event>> &eventQueue) : Layout<Vertical>(sf::IntRect(0, 0, 0, window.getSize().y * 0.75)), _size(50), _eventQueue(eventQueue), _sudoku(sudoku)
 {
     generateDigitTexture(sudoku.getRootSize());
     loadTextures();
@@ -50,18 +50,27 @@ void SudokuPanel::generateDigitTexture(unsigned char root)
 }
 bool SudokuPanel::action(const sf::Vector2i &position, const sf::Event &type)
 {
+    sf::Vector2i coords = _sudokuBoard->selectField(position);
+    _sudokuBoard->setHighlight((coords.x != -1) ? Sudoku::getNumber(_sudoku[coords.y][coords.x]) : -1);
     if (type.type != sf::Event::MouseButtonPressed)
     {
         return false;
     }
-    _buttonStrip->action(position, type);
     auto selection = _selector->getNumber(position, _eType);
-    sf::Vector2i coords = _sudokuBoard->selectField(position);
-    if (coords.x != -1)
+
+    if (coords.x == -1)
     {
-        postEvent(coords, selection);
-        return true;
+        if (type.type != sf::Event::MouseButtonPressed)
+        {
+            return false;
+        }
+        return _buttonStrip->action(position, type);
     }
+    if (coords.x == -1)
+    {
+        return false;
+    }
+    postEvent(coords, selection);
     return true;
 }
 void SudokuPanel::pause()

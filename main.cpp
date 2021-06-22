@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     }*/
     LinkedList<std::unique_ptr<Event>> eventQueue;
     LinkedList<std::string> messageQueue;
-    //BasicInterface bInterface(eventQueue,messageQueue);
+    BasicInterface bInterface(eventQueue,messageQueue);
     BasicGui gInterface(eventQueue,messageQueue);
     UserInterface &interface(gInterface);
     BasicGame game(interface, eventQueue,messageQueue);

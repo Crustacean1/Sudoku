@@ -35,7 +35,6 @@ void MoveEvent::run(Game &game)
 {
     if (active())
     {
-        std::cout << _data.move._coords._column << " " << _data.move._coords._row << " " << _data.move._number << std::endl;
         Move move(_data.move._coords, _data.move._number, _data.move._meta);
         game.applyMove(move);
         deactivate();

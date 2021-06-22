@@ -12,6 +12,7 @@ class SudokuBoard : public Drawable
 
     void createTiles();
     void adjustTile(unsigned int index, unsigned int number);
+    void setColor(unsigned int index,sf::Color color);
 
     float _size;
     float _gap;
@@ -21,10 +22,12 @@ class SudokuBoard : public Drawable
 
     Sudoku &_sudoku;
     float _digitSize;
+    unsigned int _highlight;
     sf::Vector2f _position;
 
     void copyBoard();
     void updateTiles();
+    void resetTiles();
 
     static sf::Color __colors[6];
 
@@ -36,6 +39,7 @@ public:
     void setPosition(const sf::Vector2f &position);
 
     sf::Vector2i selectField(const sf::Vector2i &position);
+    void setHighlight(unsigned char _highlight);
     ~SudokuBoard();
 };
 

@@ -48,6 +48,15 @@ public:
         computeInnerBounds();
         adjustPosition();
     }
+    template <typename... Args, typename U>
+    Layout(sf::IntRect boundingBox, std::unique_ptr<U> &&u, std::unique_ptr<Args> &&...args) : _outerBoundingBox(boundingBox)
+    {
+        _children.push_back(std::move(u));
+        ((void)_children.push_back(std::move(args)), ...);
+        _outerBoundingBox.left = _outerBoundingBox.top = 0;
+        computeInnerBounds();
+        adjustPosition();
+    }
 
     void render(sf::RenderWindow &window);
     sf::IntRect getBoundingBox() const;

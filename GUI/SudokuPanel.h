@@ -32,6 +32,8 @@ class SudokuPanel : public Layout<Vertical>
     Selector * _selector;
     Layout<Horizontal> * _buttonStrip;
 
+    Sudoku &_sudoku;
+
 public:
     SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, LinkedList<std::unique_ptr<Event>> &eventQueue);
     bool action(const sf::Vector2i &position, const sf::Event &type);

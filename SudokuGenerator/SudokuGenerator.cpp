@@ -282,17 +282,6 @@ bool SudokuGenerator::isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity)
     return false;
 }
 
-void SudokuGenerator::trimSudoku(Sudoku &a, LinkedNode<SudokuNode *> *deletions)
-{
-    auto it = deletions;
-    auto end = it;
-    do
-    {
-        a[it->_value->value % _size][(it->_value->value / _size) % _size] = 0;
-        it = it->next();
-    } while (end != it);
-}
-
 void SudokuGenerator::applySolution(LinkedNode<SudokuNode *> *solution)
 {
     solution->iterateForward([](SudokuNode *node)

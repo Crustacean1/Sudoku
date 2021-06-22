@@ -8,11 +8,11 @@ BasicGui::BasicGui(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<st
     : UserInterface(eventQueue, messageQueue)
 {
 
-    _window.create(sf::VideoMode(800, 600), "Sudoku Game");
 }
 
 void BasicGui::initiate(Game &game)
 {
+    _window.create(sf::VideoMode(800, 600), "Sudoku Game");
     std::cout << game.getSudoku() << std::endl;
     auto dimensions = _window.getSize();
     
