@@ -18,6 +18,14 @@ void Hint::setMaxHintCount(unsigned int limit)
     _hintCount = 0;
 }
 unsigned int Hint::getMaxHintCount() const { return _maxHintCount; }
+std::string Hint::write() const
+{
+    if (_maxHintCount == 0)
+    {
+        return "";
+    }
+    return "Hints left: " + std::to_string(_maxHintCount - _hintCount) + "/" + std::to_string(_maxHintCount);
+}
 
 MistakeCounter::MistakeCounter(unsigned int tolerance) : _mistakes(0), _tolerance(tolerance) {}
 void MistakeCounter::reset() { _mistakes = 0; }
@@ -29,6 +37,14 @@ void MistakeCounter::setTolerance(unsigned int limit)
 {
     _tolerance = limit;
     _mistakes = 0;
+}
+std::string MistakeCounter::write() const
+{
+    if (_tolerance == 0)
+    {
+        return "";
+    }
+    return "Mistakes: " + std::to_string(_mistakes) + "/" + std::to_string(_tolerance);
 }
 
 Timer::Timer(unsigned int timeLimit, TimerMode mode) : _limit(std::chrono::seconds(timeLimit)), _total(std::chrono::seconds(0)), _active(false), _mode(mode) {}
@@ -53,4 +69,17 @@ unsigned int Timer::limitAsSeconds() const
 bool Timer::isOver() const
 {
     return limitAsSeconds() < asSeconds();
+}
+std::string Timer::write() const
+{
+    auto time1 = asSeconds();
+    auto time2 = limitAsSeconds();
+    switch (_mode)
+    {
+    case Countdown:
+        return "Time left: " + std::to_string(time1 / 60) + ":" + std::to_string(time1 % 60) + "/" + std::to_string(time2 / 60) + ":" + std::to_string(time2 % 60);
+    case Clock:
+        return "Time: " + std::to_string(time1 / 60) + ":" + std::to_string(time1 % 60);
+    }
+    return "";
 }

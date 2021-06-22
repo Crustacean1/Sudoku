@@ -66,7 +66,7 @@ protected:
     StateCallback _stateCallbacks[6];
 
 public:
-    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue,LinkedList<std::string> &messageQueue,std::string nodeName="default mode");
+    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue, std::string nodeName = "default mode");
 
     /** Applies move to sudoku*/
     virtual void applyMove(Move &move) = 0;
@@ -75,9 +75,9 @@ public:
     /** Reveals one hidden cell*/
     virtual void askForHint(SudokuCoords coords) = 0;
 
-    Hint getHint();
-    Timer getTimer();
-    MistakeCounter getCounter();
+    Hint &getHint();
+    Timer &getTimer();
+    MistakeCounter &getCounter();
     Sudoku &getSudoku();
     std::string getModeName();
     GameState getState();

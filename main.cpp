@@ -1,5 +1,5 @@
 #include "GameModes/BasicGame.h"
-//#include "UserInterfaces/BasicInterface.h"
+#include "UserInterfaces/BasicInterface.h"
 #include "UserInterfaces/BasicGui.h"
 #include "Event/Event.h"
 #include "SudokuGenerator/SudokuGenerator.h"

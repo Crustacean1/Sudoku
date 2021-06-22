@@ -1,7 +1,14 @@
 #include "MoveEvent.h"
 
 MoveEvent::MoveEvent(Sudoku::SudokuMeta meta) : _meta(meta) {}
-MoveEvent::MoveEvent(uint8_t row, uint8_t column, uint8_t number, Sudoku::SudokuMeta meta) : _coords(row, column), _number(number), _meta(meta) {}
+MoveEvent::MoveEvent(uint8_t row, uint8_t column, uint8_t number, Sudoku::SudokuMeta meta) : _coords(row, column), _number(number), _meta(meta)
+{
+    activate();
+    if (_number == 0)
+    {
+        deactivate();
+    }
+}
 void MoveEvent::read(std::istream &stream)
 {
     _coords._row = readInt(stream);

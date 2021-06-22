@@ -72,23 +72,15 @@ void BasicInterface::render(Game &game)
 }
 void BasicInterface::render(const Timer &timer)
 {
-    if (timer._mode == Timer::Clock)
-    {
-        std::cout << "time: " << timer.asSeconds() / 60 << ":" << std::setw(2) << timer.asSeconds() % 60 << std::endl;
-    }
-    else if (timer._mode == Timer::Countdown)
-    {
-        std::cout << "time left: " << timer.asSeconds() / 60 << ":" << timer.asSeconds() % 60 << "/";
-        std::cout << timer.limitAsSeconds() / 60 << ":" << timer.limitAsSeconds() % 60 << "\n";
-    }
+    std::cout<<timer.write()<<"\t";
 }
 void BasicInterface::render(const Hint &hint)
 {
-    std::cout << "Available hints: " << (hint.getMaxHintCount() - hint.getHintCount()) << " / " << hint.getMaxHintCount() << "\t";
+    std::cout << hint.write()<<"\t";
 }
 void BasicInterface::render(const MistakeCounter &counter)
 {
-    std::cout << "Mistakes: " << counter.getMistakes() << " / " << counter.getTolerance();
+    std::cout << counter.write()<<"\t";
 }
 void BasicInterface::display()
 {

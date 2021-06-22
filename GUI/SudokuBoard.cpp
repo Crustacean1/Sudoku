@@ -1,17 +1,34 @@
 #include "SudokuBoard.h"
 #include <string>
 #include <iostream>
+#include <cstring>
 
-SudokuBoard::SudokuBoard(Sudoku &sudoku, sf::RenderTexture &texture, float size) : _size(size), _gap(2), _sudoku(sudoku),
-                                                                                   _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 1)),
-                                                                                   _transform(sf::Transform::Identity)
+sf::Color SudokuBoard::__colors[6] = {sf::Color::White,
+                                      sf::Color::White,
+                                      sf::Color(127, 127, 127),
+                                      sf::Color::Green,
+                                      sf::Color::Blue,
+                                      sf::Color::Red};
+SudokuBoard::SudokuBoard(Sudoku &sudoku, sf::RenderTexture &texture, float size) : _renderState(&texture.getTexture()), _size(size), _gap(2), _sudoku(sudoku),
+                                                                                   _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 2))
+
 {
-    createDigits(texture.getTexture());
+    copyBoard();
+    createTiles();
     _boundingBox.width = _boundingBox.height = _sudoku.getSize() * _size + (_sudoku.getSize() - 1) * _gap + (_sudoku.getRootSize() - 1) * _gap;
     _boundingBox.left = _boundingBox.top = 0;
+    _renderState.transform = sf::Transform::Identity;
 }
-
-void SudokuBoard::adjustTexture(unsigned int index, unsigned int number)
+void SudokuBoard::copyBoard()
+{
+    _board = new uint8_t *[_sudoku.getSize()];
+    for (int i = 0; i < _sudoku.getSize(); ++i)
+    {
+        _board[i] = new uint8_t[_sudoku.getSize()];
+        memcpy(_board[i], _sudoku[i], sizeof(uint8_t) * _sudoku.getSize());
+    }
+}
+void SudokuBoard::adjustTile(unsigned int index, unsigned int number)
 {
     sf::Vector2f vertices[4] = {sf::Vector2f(0, 0),
                                 sf::Vector2f(_digitSize, 0),
@@ -19,17 +36,21 @@ void SudokuBoard::adjustTexture(unsigned int index, unsigned int number)
                                 sf::Vector2f(0, _digitSize)};
     for (int i = 0; i < 4; ++i)
     {
-        _digits[index * 4 + i].texCoords = vertices[i] + sf::Vector2f(_digitSize, 0) * (float)number;
+        _tiles[index * 4 + i].texCoords = vertices[i] + sf::Vector2f(_digitSize, 0) * (float)Sudoku::getNumber(number);
+        _tiles[index * 4 + i].color = __colors[static_cast<unsigned char>(Sudoku::getMeta(number))];
     }
 }
-void SudokuBoard::createDigits(sf::Texture texure)
+void SudokuBoard::createTiles()
 {
-    _digits.resize(_sudoku.getSize() * _sudoku.getSize());
-    _digits.setPrimitiveType(sf::Quads);
+    _tiles.resize(_sudoku.getSize() * _sudoku.getSize() * 4);
+    _tiles.setPrimitiveType(sf::Quads);
+    _background = _tiles;
+
     sf::Vector2f vertices[4] = {sf::Vector2f(0, 0),
                                 sf::Vector2f(_size, 0),
                                 sf::Vector2f(_size, _size),
                                 sf::Vector2f(0, _size)};
+    sf::Vector2f backgroundOffset = sf::Vector2f( _digitSize,0) * ((float)_sudoku.getSize()+1);
     auto root = _sudoku.getRootSize();
     for (int i = 0, c = 0; i < root; ++i)
     {
@@ -41,9 +62,10 @@ void SudokuBoard::createDigits(sf::Texture texure)
                 {
                     for (int m = 0; m < 4; ++m, ++c)
                     {
-                        _digits[c].position = vertices[m] + sf::Vector2f(root * _size * i + i * _gap + (_size + _gap) * k, root * _size * j + j * _gap + (_size + _gap) * l);
+                        _background[c].texCoords = backgroundOffset + vertices[m] * (_digitSize / _size);
+                        _background[c].position = _tiles[c].position = vertices[m] + sf::Vector2f((root * _size + _gap * (root + 1)) * k + (_size + _gap) * l, (root * _size + _gap * (root + 1)) * i + (_size + _gap) * j);
                     }
-                    adjustTexture(c / 4, Sudoku::getNumber(_sudoku[i * root + k][j * root + l]));
+                    adjustTile(c / 4 - 1, _sudoku[i * root + j][k * root + l]);
                 }
             }
         }
@@ -52,20 +74,65 @@ void SudokuBoard::createDigits(sf::Texture texure)
 
 void SudokuBoard::render(sf::RenderWindow &window)
 {
-    window.draw(_digits);
+    updateTiles();
+    window.draw(_background, _renderState);
+    window.draw(_tiles, _renderState);
 }
 sf::IntRect SudokuBoard::getBoundingBox() const
 {
-    auto bbox = _digits.getBounds();
+    auto bbox = _tiles.getBounds();
     return sf::IntRect(_position.x - bbox.width / 2, _position.y - bbox.height / 2, bbox.width, bbox.height);
 }
 void SudokuBoard::setPosition(const sf::Vector2f &position)
 {
+    auto bbox = _tiles.getBounds();
     _position = position;
-    _transform = sf::Transform::Identity;
-    _transform.translate(_position);
+    _renderState.transform = sf::Transform::Identity;
+    _renderState.transform.translate(position - sf::Vector2f(bbox.width, bbox.height) / 2.f);
 }
 sf::Vector2f SudokuBoard::getPosition() const
 {
     return _position;
+}
+sf::Vector2i SudokuBoard::selectField(const sf::Vector2i &position)
+{
+    sf::Vector2i realPosition = static_cast<sf::Vector2i>(_renderState.transform.getInverse().transformPoint(static_cast<sf::Vector2f>(position)));
+    sf::IntRect rect;
+    rect.width = rect.height = _size;
+    for (int i = 0, c = 0; i < _sudoku.getSize(); ++i)
+    {
+        for (int j = 0; j < _sudoku.getSize(); ++j, ++c)
+        {
+            rect.left = _tiles[c * 4].position.x;
+            rect.top = _tiles[c * 4].position.y;
+            if (rect.contains(realPosition))
+            {
+                return sf::Vector2i(j, i);
+            }
+        }
+    }
+    return sf::Vector2i(-1, -1);
+}
+void SudokuBoard::updateTiles()
+{
+    auto root = _sudoku.getRootSize();
+    for (int i = 0; i < _sudoku.getSize(); ++i)
+    {
+        for (int j = 0; j < _sudoku.getSize(); ++j)
+        {
+            if (_sudoku[i][j] != _board[i][j])
+            {
+                adjustTile(i * root * root + j, _sudoku[i][j]);
+                _board[i][j] = _sudoku[i][j];
+            }
+        }
+    }
+}
+SudokuBoard::~SudokuBoard()
+{
+    for (int i = 0; i < _sudoku.getSize(); ++i)
+    {
+        delete[] _board[i];
+    }
+    delete[] _board;
 }

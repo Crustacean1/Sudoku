@@ -2,7 +2,6 @@
 #define BASICGUI
 
 #include "UserInterface.h"
-#include "GUI/Rectangle.h"
 #include <SFML/Graphics.hpp>
 #include "GUI/Drawable.h"
 #include <memory>
@@ -13,6 +12,7 @@ class BasicGui : public UserInterface
     std::unique_ptr<Drawable> _guiRoot;
     std::unique_ptr<Drawable> _sudokuBoard;
     //std::unique_ptr<GUI::GuiNode<GUI::GuiNode, GUI::GuiNode, GUI::GuiNode>> _node;
+    void processMouse(sf::Event & event);
 
 public:
     BasicGui(LinkedList<std::unique_ptr<Event>> &_eventQueue, LinkedList<std::string> &_messageQueue);

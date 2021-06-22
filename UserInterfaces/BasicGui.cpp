@@ -1,6 +1,7 @@
 #include "BasicGui.h"
 #include "Event/Event.h"
-#include "GUI/Sudoku/SudokuPanel.h"
+#include "GUI/SudokuPanel.h"
+#include "GUI/Label.h"
 #include <iostream>
 
 BasicGui::BasicGui(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue)
@@ -14,11 +15,18 @@ void BasicGui::initiate(Game &game)
 {
     std::cout << game.getSudoku() << std::endl;
     auto dimensions = _window.getSize();
-    auto rect = std::unique_ptr<Rectangle>(new Rectangle(sf::Vector2f(0, 0), sf::Vector2f(100, 100)));
-    auto sudokuPanel = std::unique_ptr<SudokuPanel>(new SudokuPanel(_window,game.getSudoku()));
-    //_sudokuBoard = std::unique_ptr<SudokuBoard>(new SudokuBoard(game.getSudoku(), sf::Vector2f(0, 0)));
-    //auto selector = std::unique_ptr<Selector>(new Selector(sf::Vector2f(0,0), SudokuBoard::getDigits(), (unsigned char)game.getSudoku().getSize()));
-    _guiRoot = std::unique_ptr<Layout<Vertical>>(new Layout<Vertical>(sf::IntRect(0, 0, dimensions.x, dimensions.y), sudokuPanel));
+    
+    auto sudokuPanel = std::unique_ptr<SudokuPanel>(new SudokuPanel(_window, game.getSudoku(), _eventQueue));
+    
+    auto hints = std::unique_ptr<Label>(new Label(game.getHint()));
+    auto timer = std::unique_ptr<Label>(new Label(game.getTimer()));
+    auto mistakes = std::unique_ptr<Label>(new Label(game.getCounter()));
+
+    sf::Event event;
+    ((Drawable *)sudokuPanel.get())->action(sf::Vector2i(0, 0), event);
+
+    auto widgetPanel = std::unique_ptr<Layout<Horizontal>>(new Layout<Horizontal>(sf::IntRect(0, 0, dimensions.x, 0), hints, timer, mistakes));
+    _guiRoot = std::unique_ptr<Layout<Vertical>>(new Layout<Vertical>(sf::IntRect(0, 0, dimensions.x, dimensions.y), widgetPanel, sudokuPanel));
 }
 void BasicGui::render(Game &game)
 {
@@ -36,6 +44,7 @@ void BasicGui::input()
             _window.close();
         }
     }
+    processMouse(event);
 }
 void BasicGui::display()
 {
@@ -45,4 +54,8 @@ void BasicGui::display()
 void BasicGui::clear()
 {
     _window.clear(sf::Color(0, 0, 0));
+}
+void BasicGui::processMouse(sf::Event &event)
+{
+    _guiRoot->action(sf::Mouse::getPosition(_window), event);
 }
