@@ -23,6 +23,7 @@ void BasicGame::retractMove()
     {
         return;
     }
+    if(_moves.getRoot()==nullptr){return;}
     auto &move = _moves.getRoot()->prev()->_value;
     _sudoku.retractMove(move);
     _moves.pop_back();

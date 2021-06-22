@@ -10,12 +10,30 @@
 class SudokuPanel : public Layout<Vertical>
 {
     sf::RenderTexture _digitsTexture;
+    sf::Texture _pauseTexture;
+    sf::Texture _undoTexture;
+    sf::Texture _hintTexture;
+
     float _size;
     void generateDigitTexture(unsigned char root);
-    LinkedList<std::unique_ptr<Event>> & _eventQueue;
+    void loadTextures();
+    LinkedList<std::unique_ptr<Event>> &_eventQueue;
 
-    public:
-    SudokuPanel(sf::RenderWindow & window,Sudoku & sudoku,LinkedList<std::unique_ptr<Event>> &eventQueue);
+    Event::EventType _eType;
+
+    void pause();
+    void undo();
+    void hint();
+
+    void postEvent(sf::Vector2i pos,unsigned char numbe);
+    void postEvent();
+
+    SudokuBoard * _sudokuBoard;
+    Selector * _selector;
+    Layout<Horizontal> * _buttonStrip;
+
+public:
+    SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, LinkedList<std::unique_ptr<Event>> &eventQueue);
     bool action(const sf::Vector2i &position, const sf::Event &type);
 };
 

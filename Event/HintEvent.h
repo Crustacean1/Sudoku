@@ -6,8 +6,6 @@
 
 class HintEvent : public Event
 {
-    SudokuCoords _coords;
-
 public:
     HintEvent();
     HintEvent(SudokuCoords coords);

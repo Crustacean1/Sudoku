@@ -5,6 +5,7 @@
 #include "SudokuBoard.h"
 #include "Sudoku/Sudoku.h"
 #include "GUI/Layout.h"
+#include "Event/Event.h"
 
 class BasicGui;
 
@@ -30,7 +31,7 @@ public:
     void setPosition(const sf::Vector2f &position);
     sf::IntRect getBoundingBox() const;
 
-    char getNumber(const sf::Vector2i &position);
+    char getNumber(const sf::Vector2i &position,Event::EventType & event);
 };
 
 #endif /*SELECTOR*/

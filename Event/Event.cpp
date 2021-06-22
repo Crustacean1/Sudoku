@@ -53,6 +53,8 @@ Event *Event::createEvent(EventType eventType)
         break;
     case EventType::ExitEvent:
         return new StateEvent(Game::GameState::GameOver);
+    case EventType::VoidEvent:
+        return new MoveEvent(0,0,0);
     default:
         return nullptr;
     }

@@ -30,7 +30,7 @@ sf::Vector2f Label::getPosition() const
 }
 sf::IntRect Label::getBoundingBox() const
 {
-    return (sf::IntRect)_text.getLocalBounds();
+    return (sf::IntRect)_text.getGlobalBounds();
 }
 void Label::setText(const std::string &text)
 {

@@ -8,8 +8,6 @@
 class StateEvent : public Event
 {
 private:
-    /* data */
-    Game::GameState _state;
 public:
     StateEvent(Game::GameState newState);
     void read(std::istream & stream);

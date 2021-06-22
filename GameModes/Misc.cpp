@@ -1,10 +1,12 @@
 #include "Misc.h"
-
+#include <iostream>
 Hint::Hint(unsigned int hintCount) : _hintCount(0), _maxHintCount(hintCount) {}
 bool Hint::uncover(SudokuCoords pos, Sudoku &filledSudoku, Sudoku &sudoku)
 {
+    std::cout<<_hintCount<<std::endl;
     if (_hintCount == _maxHintCount)
     {
+        std::cout<<"???"<<std::endl;
         return false;
     }
     sudoku[pos._row][pos._column] = Sudoku::constructCell(Sudoku::getNumber(filledSudoku[pos._row][pos._column]), Sudoku::SudokuMeta::Default);
@@ -24,6 +26,7 @@ std::string Hint::write() const
     {
         return "";
     }
+    //std::cout<<std::to_string(_maxHintCount - _hintCount)<<std::endl;
     return "Hints left: " + std::to_string(_maxHintCount - _hintCount) + "/" + std::to_string(_maxHintCount);
 }
 

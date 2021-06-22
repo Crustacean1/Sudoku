@@ -3,7 +3,7 @@
 Selector::Selector(Sudoku &sudoku, sf::RenderTexture &texture) : _renderState(&texture.getTexture()),
                                                                  _sudoku(sudoku), _size(50),
                                                                  _texSize(texture.getSize().x / (sudoku.getSize() + 2)),
-                                                                 _gap(2), _prev(-1)
+                                                                 _gap(2), _prev(0)
 {
     createDigits(sudoku.getRootSize());
     _renderState.transform = sf::Transform::Identity;
@@ -64,7 +64,7 @@ sf::IntRect Selector::getBoundingBox() const
     return (sf::IntRect)_renderState.transform.transformRect(_digits.getBounds());
 }
 
-char Selector::getNumber(const sf::Vector2i &position)
+char Selector::getNumber(const sf::Vector2i &position, Event::EventType &event)
 {
     sf::Vector2i realPosition = static_cast<sf::Vector2i>(_renderState.transform.getInverse().transformPoint(static_cast<sf::Vector2f>(position)));
     sf::IntRect rect;
@@ -75,7 +75,8 @@ char Selector::getNumber(const sf::Vector2i &position)
         rect.top = _digits[i * 4].position.y;
         if (rect.contains(realPosition))
         {
-            _prev = i;
+            event = Event::EventType::MoveEvent;
+            _prev = i + 1;
             return _prev;
         }
     }

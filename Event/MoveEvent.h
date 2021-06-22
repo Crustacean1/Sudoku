@@ -7,9 +7,6 @@
 
 class MoveEvent : public Event
 {
-    SudokuCoords _coords;
-    uint8_t _number;
-    Sudoku::SudokuMeta _meta;
 
 public:
     MoveEvent(Sudoku::SudokuMeta meta = Sudoku::SudokuMeta::Filled);
