@@ -28,7 +28,7 @@ SudokuGenerator::SudokuNode **SudokuGenerator::generateHeaders()
     SudokuNode **headerJumpTable = new SudokuNode *[_size * _size * 4];
     headerJumpTable[0] = header;
     header->header = nullptr;
-    header->value = 1;
+    header->value = 0;
 
     for (unsigned int i = 1; i < _size * _size * 4; ++i)
     {
@@ -127,12 +127,12 @@ bool SudokuGenerator::algorithmX(SudokuNode *header, LinkedNode<SudokuNode *> *s
     }
 
     //Iterate over column with random element
-    auto shift = std::uniform_int_distribution<uint16_t>(1, header->value + 1)(_engine);
+    auto shift = std::uniform_int_distribution<uint16_t>(1, header->value)(_engine);
+
     header->col->popOut();
     auto ptr = header->col;
     ptr = ptr->next(shift);
     auto it = ptr;
-
     do
     {
         header->col->popIn();
@@ -197,7 +197,7 @@ void SudokuGenerator::restoreNode(SudokuNode *node)
 
 void SudokuGenerator::decode(SudokuNode *node, const uint16_t &size, uint8_t **tab)
 {
-    tab[node->value % size][(node->value / size) % size] = Sudoku::constructCell(((node->value / size) / size) + 1,Sudoku::SudokuMeta::Default);
+    tab[node->value % size][(node->value / size) % size] = Sudoku::constructCell(((node->value / size) / size) + 1, Sudoku::SudokuMeta::Default);
 }
 
 Sudoku SudokuGenerator::constructSudoku(LinkedNode<SudokuNode *> *solution)
@@ -213,7 +213,7 @@ Sudoku SudokuGenerator::constructSudoku(LinkedNode<SudokuNode *> *solution)
     return s;
 }
 
-std::tuple<Sudoku,Sudoku> SudokuGenerator::generate()
+std::tuple<Sudoku, Sudoku> SudokuGenerator::generate()
 {
     auto matrix = generateSparseConstraintMatrix();
     LinkedNode<SudokuNode *> *solution = new LinkedNode<SudokuNode *>(new SudokuNode);
@@ -228,12 +228,21 @@ std::tuple<Sudoku,Sudoku> SudokuGenerator::generate()
     delete solution->prev()->erase();
 
     Sudoku src(constructSudoku(solution));
-    Sudoku sudoku(generateMinimalSudoku(matrix, solution));
+    Sudoku sudoku;
+    if (_rootSize < 5)
+    {
+        sudoku = (generateMinimalSudoku(matrix, solution));
+    }
+    else
+    {
+        sudoku = src;
+        randomSudokuTrim(sudoku, sudoku.getSize() * sudoku.getSize() * 0.4); // 0.4 correlates to difficulty
+    }
 
     //cleaning up
     disposeSparseConstraintMatrix(matrix);
 
-    return std::tie(src,sudoku);
+    return std::tie(src, sudoku);
 }
 
 bool SudokuGenerator::isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity)
@@ -335,4 +344,15 @@ Sudoku SudokuGenerator::generateMinimalSudoku(SudokuNode *matrix, LinkedNode<Sud
     delete it;
 
     return sudoku;
+}
+void SudokuGenerator::randomSudokuTrim(Sudoku &sudoku, unsigned int scale)
+{
+    std::uniform_int_distribution<uint16_t> dist(0, sudoku.getSize() - 1);
+    for (int i = 0; i < sudoku.getSize(); ++i)
+    {
+        for (int j = 0; j < sudoku.getSize() && scale != 0; ++j, --scale)
+        {
+            sudoku[dist(_engine)][dist(_engine)] = Sudoku::constructCell(0, Sudoku::SudokuMeta::Empty);
+        }
+    }
 }

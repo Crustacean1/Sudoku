@@ -9,7 +9,7 @@
 class BasicInterface : public UserInterface
 {
 private:
-    static char _sudokuTiles[2][25];
+    static char _sudokuTiles[2][37];
     static char _metaMarkers[2][6][8];
     static std::unordered_map<std::string, Event::EventType> _events;
 

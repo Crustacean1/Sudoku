@@ -62,7 +62,7 @@ private:
     Sudoku constructSudoku(LinkedNode<SudokuNode *> *solution);
 
     Sudoku generateMinimalSudoku(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
-    void trimSudoku(Sudoku &sudoku, LinkedNode<SudokuNode *> *deletions);
+    void randomSudokuTrim(Sudoku & sudoku,unsigned int scale);
 
     bool isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity);
 

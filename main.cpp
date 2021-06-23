@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     LinkedList<std::string> messageQueue;
     BasicInterface bInterface(eventQueue,messageQueue);
     BasicGui gInterface(eventQueue,messageQueue);
-    UserInterface &interface(gInterface);
+    UserInterface &interface(bInterface);
     BasicGame game(interface, eventQueue,messageQueue);
     game.init();
     game.gameLoop();

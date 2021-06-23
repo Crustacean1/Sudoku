@@ -72,7 +72,7 @@ void BasicGame::checkExitConditions()
 }
 void BasicGame::init()
 {
-    SudokuGenerator generator(4);
+    SudokuGenerator generator(3);
     std::tie(_filledSudoku, _baseSudoku) = generator.generate();
     _sudoku = _baseSudoku;
     _state = Play;

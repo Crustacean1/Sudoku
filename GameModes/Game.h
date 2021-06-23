@@ -66,7 +66,7 @@ protected:
     StateCallback _stateCallbacks[6];
 
 public:
-    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue, std::string nodeName = "default mode");
+    Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue, std::string modeName = "default mode");
 
     /** Applies move to sudoku*/
     virtual void applyMove(Move &move) = 0;
