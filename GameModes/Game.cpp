@@ -6,7 +6,7 @@ Timer &Game::getTimer() { return _timer; }
 MistakeCounter &Game::getCounter() { return _counter; }
 Sudoku &Game::getSudoku() { return _sudoku; }
 std::string Game::getModeName() { return _modeName; }
-Game::GameState Game::getState() { return _state; }
+Game::GameState &Game::getState() { return _state; }
 
 bool Game::callbackPlaceholder(GameState newState) { return true; }
 Game::Game(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue, std::string modeName) : _interface(interface), _eventQueue(eventQueue), _messageQueue(messageQueue),

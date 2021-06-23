@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <cstring>
+#include "GameModes/Game.h"
 
 sf::Color SudokuBoard::__colors[6] = {sf::Color::White,
                                       sf::Color::White,
@@ -9,8 +10,8 @@ sf::Color SudokuBoard::__colors[6] = {sf::Color::White,
                                       sf::Color::Green,
                                       sf::Color::Blue,
                                       sf::Color::Red};
-SudokuBoard::SudokuBoard(Sudoku &sudoku, sf::RenderTexture &texture, float size) : _renderState(&texture.getTexture()), _size(size), _gap(2), _sudoku(sudoku),
-                                                                                   _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 2)), _highlight(-1)
+SudokuBoard::SudokuBoard(Sudoku &sudoku, Game::GameState &state, sf::RenderTexture &texture, float size) : _renderState(&texture.getTexture()), _size(size), _gap(2), _sudoku(sudoku),
+                                                                                                           _digitSize(texture.getSize().x / (float)(_sudoku.getSize() + 2)), _highlight(-1), _state(state)
 
 {
     copyBoard();
@@ -75,12 +76,14 @@ void SudokuBoard::createTiles()
         }
     }
 }
-
 void SudokuBoard::render(sf::RenderWindow &window)
 {
     updateTiles();
     window.draw(_background, _renderState);
-    window.draw(_tiles, _renderState);
+    if (_state!=Game::GameState::Pause)
+    {
+        window.draw(_tiles, _renderState);
+    }
 }
 sf::IntRect SudokuBoard::getBoundingBox() const
 {

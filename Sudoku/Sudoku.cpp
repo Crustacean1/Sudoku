@@ -47,7 +47,7 @@ bool Sudoku::checkRow(uint16_t row, uint8_t number) const
 {
     for (auto i = 0; i < _size; ++i)
     {
-        if (getNumber(_board[row][i]) == number)
+        if (getNumber(_board[row][i]) == number && getMeta(_board[row][i]) != SudokuMeta::Note)
         {
             return false;
         }
@@ -58,7 +58,7 @@ bool Sudoku::checkColumn(uint16_t column, uint8_t number) const
 {
     for (auto i = 0; i < _size; ++i)
     {
-        if (getNumber(_board[i][column]) == number)
+        if (getNumber(_board[i][column]) == number && getMeta(_board[i][column]) != SudokuMeta::Note)
         {
             return false;
         }
@@ -69,9 +69,9 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
 {
     for (auto i = 0; i < _rootSize; ++i)
     {
-        for (auto j = 0; j < _rootSize; ++j)
+        for (unsigned int j = 0,cell = _board[rbox * _rootSize + i][cbox * _rootSize + j]; j < _rootSize; ++j,cell = _board[rbox * _rootSize + i][cbox * _rootSize + j])
         {
-            if (getNumber(_board[rbox * _rootSize + i][cbox * _rootSize + j]) == number)
+            if (getNumber(cell) == number && getMeta(cell) != SudokuMeta::Note)
             {
                 return false;
             }
@@ -92,7 +92,7 @@ void Sudoku::applyMove(Move &move)
         return;
     }
     auto meta = getMeta((*this)[move._pos]);
-    if (meta == SudokuMeta::Empty || meta == SudokuMeta::Filled || meta == SudokuMeta::Invalid || meta == SudokuMeta::Note)
+    if (meta == SudokuMeta::Empty || meta == SudokuMeta::Note)
     {
         if (!check(move._pos._row, move._pos._column, move._number))
         {
@@ -107,11 +107,13 @@ void Sudoku::retractMove(const Move &move)
 }
 bool Sudoku::isComplete() const
 {
+    SudokuMeta meta;
     for (int i = 0; i < _size; ++i)
     {
         for (int j = 0; j < _size; ++j)
         {
-            if (getMeta(_board[i][j]) == SudokuMeta::Empty)
+            meta = getMeta(_board[i][j]);
+            if (meta == SudokuMeta::Empty || meta == SudokuMeta::Note || meta == SudokuMeta::Invalid)
             {
                 return false;
             }

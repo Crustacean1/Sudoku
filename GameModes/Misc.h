@@ -35,7 +35,7 @@ public:
     unsigned int getTolerance() const;
     void setTolerance(unsigned int tolerance);
     void reset();
-    void increment();
+    bool check(Sudoku & sudoku,Move & move);
     bool gameOver() const;
 
     std::string write()const;

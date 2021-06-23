@@ -36,6 +36,7 @@ public:
     void clear();
 
     uint32_t count();
+    bool empty() { return _root == nullptr; }
 };
 template <typename T>
 template <typename... V>
@@ -116,8 +117,8 @@ void LinkedList<T>::pop_front()
         _root = nullptr;
         return;
     }
-    _root->erase();
     auto newRoot = _root->next();
+    _root->erase();
     delete _root;
     _root = newRoot;
 }
@@ -147,10 +148,13 @@ uint32_t LinkedList<T>::count()
     }
     return count;
 }
-template<typename T>
+template <typename T>
 void LinkedList<T>::clear()
 {
-    if(_root==nullptr){return;}
+    if (_root == nullptr)
+    {
+        return;
+    }
     delete _root;
     _root = nullptr;
 }

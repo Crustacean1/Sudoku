@@ -80,7 +80,7 @@ public:
     MistakeCounter &getCounter();
     Sudoku &getSudoku();
     std::string getModeName();
-    GameState getState();
+    GameState &getState();
 
     void changeState(GameState newState);
     static void flushEvents(Game *game);

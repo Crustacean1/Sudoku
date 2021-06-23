@@ -3,9 +3,13 @@
 
 #include "GUI/Drawable.h"
 #include "Sudoku/Sudoku.h"
+#include "GameModes/Game.h"
 
 class SudokuBoard : public Drawable
 {
+
+    static sf::Color __colors[6];
+
     sf::VertexArray _tiles;
     sf::VertexArray _background;
     sf::RenderStates _renderState;
@@ -25,14 +29,14 @@ class SudokuBoard : public Drawable
     unsigned int _highlight;
     sf::Vector2f _position;
 
+    Game::GameState & _state;
+
     void copyBoard();
     void updateTiles();
     void resetTiles();
 
-    static sf::Color __colors[6];
-
 public:
-    SudokuBoard(Sudoku &sudoku, sf::RenderTexture &texture, float size = 50);
+    SudokuBoard(Sudoku &sudoku,Game::GameState & state, sf::RenderTexture &texture, float size = 50);
     void render(sf::RenderWindow &window);
     sf::IntRect getBoundingBox() const;
     sf::Vector2f getPosition() const;

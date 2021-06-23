@@ -1,16 +1,20 @@
 #include "SudokuPanel.h"
 #include "Event/MoveEvent.h"
 #include "Button.h"
+#include <iostream>
 
-SudokuPanel::SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, LinkedList<std::unique_ptr<Event>> &eventQueue) : Layout<Vertical>(sf::IntRect(0, 0, 0, window.getSize().y * 0.75)), _size(50), _eventQueue(eventQueue), _sudoku(sudoku)
+SudokuPanel::SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, Game::GameState &state,
+                         LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : Layout<Vertical>(sf::IntRect(0, 0, 0, window.getSize().y * 0.75)),
+                                                                                                                  _size(50), _eventQueue(eventQueue), _messageQueue(messageQueue),
+                                                                                                                  _sudoku(sudoku), _state(state)
 {
     generateDigitTexture(sudoku.getRootSize());
     loadTextures();
     auto undoButton = std::unique_ptr<BaseButton>(new Button(sf::IntRect(0, 0, 50, 50), _undoTexture, this, &SudokuPanel::undo));
-    auto pauseButton = std::unique_ptr<BaseButton>(new Button(sf::IntRect(0, 0, 50, 50), _pauseTexture, this, &SudokuPanel::pause));
+    auto pauseButton = std::unique_ptr<BaseButton>(new ToggleButton<SudokuPanel>(sf::IntRect(0, 0, 50, 50), _pauseTexture, _resumeTexture, this, &SudokuPanel::pause));
     auto hintButton = std::unique_ptr<BaseButton>(new Button(sf::IntRect(0, 0, 50, 50), _hintTexture, this, &SudokuPanel::hint));
 
-    auto sudokuBoard = std::unique_ptr<Drawable>(_sudokuBoard = new SudokuBoard(sudoku, _digitsTexture)); // Terrible, terrible idea, don't ever do this
+    auto sudokuBoard = std::unique_ptr<Drawable>(_sudokuBoard = new SudokuBoard(sudoku, state, _digitsTexture)); // Terrible, terrible idea, don't ever do this
     auto selector = std::unique_ptr<Drawable>(_selector = new Selector(sudoku, _digitsTexture));
 
     auto buttonStrip = std::unique_ptr<Drawable>(_buttonStrip = new Layout<Horizontal>(sf::IntRect(0, 0,
@@ -51,31 +55,48 @@ void SudokuPanel::generateDigitTexture(unsigned char root)
 bool SudokuPanel::action(const sf::Vector2i &position, const sf::Event &type)
 {
     sf::Vector2i coords = _sudokuBoard->selectField(position);
-    _sudokuBoard->setHighlight((coords.x != -1) ? Sudoku::getNumber(_sudoku[coords.y][coords.x]) : -1);
+    unsigned char selection = -1;
+    selection = _selector->getNumber(position, _eType);
+    if (selection == 0 && coords.x != -1)
+    {
+        selection = Sudoku::getNumber(_sudoku[coords.y][coords.x]);
+    }
+    _sudokuBoard->setHighlight(selection);
+
     if (type.type != sf::Event::MouseButtonPressed)
     {
         return false;
     }
-    auto selection = _selector->getNumber(position, _eType);
-
+    if (selection != 0)
+    {
+        _selectedNumber = selection;
+    }
     if (coords.x == -1)
     {
-        if (type.type != sf::Event::MouseButtonPressed)
-        {
-            return false;
-        }
         return _buttonStrip->action(position, type);
     }
     if (coords.x == -1)
     {
         return false;
     }
-    postEvent(coords, selection);
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        postEvent(coords, _selectedNumber);
+    }
+    else
+    {
+        _eType = Event::EventType::NoteEvent;
+        postEvent(coords, _selectedNumber);
+    }
     return true;
 }
 void SudokuPanel::pause()
 {
     _eType = Event::EventType::PauseEvent;
+    if (_state == Game::GameState::Pause)
+    {
+        _eType = Event::EventType::ResumeEvent;
+    }
     postEvent();
 }
 void SudokuPanel::undo()
@@ -103,4 +124,5 @@ void SudokuPanel::loadTextures()
     _hintTexture.loadFromFile("hint.png");
     _undoTexture.loadFromFile("undo.png");
     _pauseTexture.loadFromFile("pause.png");
+    _resumeTexture.loadFromFile("resume.png");
 }

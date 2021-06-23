@@ -69,6 +69,8 @@ public:
     void addChild(std::unique_ptr<Drawable> &&child);
 
     bool action(const sf::Vector2i &position, const sf::Event &type);
+    void setOuterBox(const sf::IntRect & box);
+    void realign();
 };
 
 template <typename T>
@@ -157,5 +159,17 @@ bool Layout<T>::action(const sf::Vector2i &position, const sf::Event &type)
     bool active = false;
     _children.iterate(passAction, position, type, active);
     return active;
+}
+template <typename T>
+void Layout<T>::realign()
+{
+    computeInnerBounds();
+    adjustPosition();
+}
+template<typename T>
+void Layout<T>::setOuterBox(const sf::IntRect & box)
+{
+    _outerBoundingBox = box;
+    realign();
 }
 #endif /*BASELAYOUT*/

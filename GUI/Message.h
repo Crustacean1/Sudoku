@@ -6,10 +6,11 @@
 class Text : public Drawable
 {
     sf::Text _text;
-
+    static sf::Font __defaultFont;
+    static sf::Font getFont(const std::string& fname);
 public:
     Text(const std::string &str);
-    void setString(const std::string & str);
+    void setString(const std::string &str);
     std::string getString();
 
     void render(sf::RenderWindow &window);
@@ -19,14 +20,16 @@ public:
 };
 class Message : public Layout<Vertical>
 {
-    LinkedList<std::string> &_messageQueue;
     sf::RectangleShape _background;
 
     sf::Texture _buttonTexture;
-    void popQueue();
+    bool _accepted;
+    void accept();
+
 public:
-    Message(LinkedList<std::string> &messageQueue, sf::IntRect size);
-    void render(sf::RenderWindow & window);
+    Message(const std::string &content,sf::RenderWindow & window);
+    void render(sf::RenderWindow &window);
+    bool isAccepted();
 };
 
 #endif /*MESSAGE*/

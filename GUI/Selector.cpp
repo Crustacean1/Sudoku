@@ -76,9 +76,8 @@ char Selector::getNumber(const sf::Vector2i &position, Event::EventType &event)
         if (rect.contains(realPosition))
         {
             event = Event::EventType::MoveEvent;
-            _prev = i + 1;
-            return _prev;
+            return i + 1;
         }
     }
-    return _prev;
+    return 0;
 }

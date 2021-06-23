@@ -1,5 +1,5 @@
 #include "Button.h"
-#include <iostream>
+
 BaseButton::BaseButton(sf::IntRect size, sf::Texture &texture) : _shape(sf::Vector2f(size.width, size.height))
 {
     _shape.setPosition(sf::Vector2f(size.left, size.top));
@@ -24,10 +24,14 @@ sf::IntRect BaseButton::getBoundingBox() const
 }
 bool BaseButton::action(const sf::Vector2i &position, const sf::Event &type)
 {
-    if (getBoundingBox().contains(position))
+    if (getBoundingBox().contains(position) && type.type == sf::Event::EventType::MouseButtonPressed)
     {
         execute();
         return true;
     }
     return false;
+}
+void BaseButton::setTexture(sf::Texture &tex)
+{
+    _shape.setTexture(&tex);
 }

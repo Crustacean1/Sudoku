@@ -14,6 +14,7 @@ void BasicGame::applyMove(Move &move)
     {
         return;
     }
+    _counter.check(_filledSudoku, move);
     _sudoku.applyMove(move);
     _moves.push_back(move);
 }
@@ -23,8 +24,12 @@ void BasicGame::retractMove()
     {
         return;
     }
-    if(_moves.getRoot()==nullptr){return;}
+    if (_moves.getRoot() == nullptr)
+    {
+        return;
+    }
     auto &move = _moves.getRoot()->prev()->_value;
+
     _sudoku.retractMove(move);
     _moves.pop_back();
 }
@@ -34,7 +39,7 @@ void BasicGame::askForHint(SudokuCoords coords)
     {
         return;
     }
-    if(!_hint.uncover(coords, _filledSudoku, _sudoku))
+    if (!_hint.uncover(coords, _filledSudoku, _sudoku))
     {
         _messageQueue.push_back("maximum hint count exceeded");
     }
@@ -60,14 +65,14 @@ bool BasicGame::restartTimer(GameState state)
 }
 void BasicGame::checkExitConditions()
 {
-    if (_sudoku.isComplete())
+    if (_sudoku.isComplete() || _counter.gameOver())
     {
         changeState(GameState::GameOver);
     }
 }
 void BasicGame::init()
 {
-    SudokuGenerator generator(3);
+    SudokuGenerator generator(4);
     std::tie(_filledSudoku, _baseSudoku) = generator.generate();
     _sudoku = _baseSudoku;
     _state = Play;

@@ -1,12 +1,14 @@
 #include "Misc.h"
 #include <iostream>
+#include "Move/Move.h"
+
 Hint::Hint(unsigned int hintCount) : _hintCount(0), _maxHintCount(hintCount) {}
 bool Hint::uncover(SudokuCoords pos, Sudoku &filledSudoku, Sudoku &sudoku)
 {
-    std::cout<<_hintCount<<std::endl;
+    std::cout << _hintCount << std::endl;
     if (_hintCount == _maxHintCount)
     {
-        std::cout<<"???"<<std::endl;
+        std::cout << "???" << std::endl;
         return false;
     }
     sudoku[pos._row][pos._column] = Sudoku::constructCell(Sudoku::getNumber(filledSudoku[pos._row][pos._column]), Sudoku::SudokuMeta::Default);
@@ -32,7 +34,17 @@ std::string Hint::write() const
 
 MistakeCounter::MistakeCounter(unsigned int tolerance) : _mistakes(0), _tolerance(tolerance) {}
 void MistakeCounter::reset() { _mistakes = 0; }
-void MistakeCounter::increment() { _mistakes = std::max(_mistakes + 1, _tolerance); }
+
+bool MistakeCounter::check(Sudoku &sudoku, Move &move)
+{
+    if (Sudoku::getNumber(sudoku[move._pos._row][move._pos._column]) != move._number && move._meta != Sudoku::SudokuMeta::Note)
+    {
+        _mistakes = std::min(_mistakes + 1, _tolerance);
+        move._meta = Sudoku::SudokuMeta::Invalid;
+        return false;
+    }
+    return true;
+}
 bool MistakeCounter::gameOver() const { return _mistakes == _tolerance; };
 unsigned int MistakeCounter::getMistakes() const { return _mistakes; }
 unsigned int MistakeCounter::getTolerance() const { return _tolerance; }
@@ -71,7 +83,7 @@ unsigned int Timer::limitAsSeconds() const
 }
 bool Timer::isOver() const
 {
-    return limitAsSeconds() < asSeconds();
+    return ((_mode==Clock) || limitAsSeconds() < asSeconds());
 }
 std::string Timer::write() const
 {

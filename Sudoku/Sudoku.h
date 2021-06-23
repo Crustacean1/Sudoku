@@ -53,9 +53,6 @@ private:
     bool checkColumn(uint16_t column, uint8_t number) const;
     /** Check for conflicts in box*/
     bool checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const;
-
-    bool check(uint16_t row,uint16_t col,uint8_t number);
-
 public:
     Sudoku(uint8_t rootSize, uint8_t **board);
     Sudoku(const Sudoku &sudoku);
@@ -64,6 +61,9 @@ public:
 
     Sudoku &operator=(const Sudoku &sudoku);
     Sudoku &operator=(Sudoku &&sudoku);
+
+    /** Checks if insertion is possible*/
+    bool check(uint16_t row,uint16_t col,uint8_t number);
 
     /** Check if sudoku is filled*/
     bool isComplete() const;
