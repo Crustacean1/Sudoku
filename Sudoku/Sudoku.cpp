@@ -69,7 +69,7 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
 {
     for (auto i = 0; i < _rootSize; ++i)
     {
-        for (unsigned int j = 0,cell = _board[rbox * _rootSize + i][cbox * _rootSize + j]; j < _rootSize; ++j,cell = _board[rbox * _rootSize + i][cbox * _rootSize + j])
+        for (unsigned int j = 0, cell = _board[rbox * _rootSize + i][cbox * _rootSize + j]; j < _rootSize; ++j, cell = _board[rbox * _rootSize + i][cbox * _rootSize + j])
         {
             if (getNumber(cell) == number && getMeta(cell) != SudokuMeta::Note)
             {
@@ -92,6 +92,11 @@ void Sudoku::applyMove(Move &move)
         return;
     }
     auto meta = getMeta((*this)[move._pos]);
+    if (move._meta == SudokuMeta::Retract)
+    {
+        retractMove(move);
+        return;
+    }
     if (meta == SudokuMeta::Empty || meta == SudokuMeta::Note)
     {
         if (!check(move._pos._row, move._pos._column, move._number))

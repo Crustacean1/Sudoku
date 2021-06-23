@@ -1,4 +1,5 @@
 #include "GameModes/BasicGame.h"
+#include "GameModes/CoOp.h"
 #include "UserInterfaces/BasicInterface.h"
 #include "UserInterfaces/BasicGui.h"
 #include "Event/Event.h"
@@ -23,8 +24,11 @@ int main(int argc, char **argv)
     LinkedList<std::string> messageQueue;
     BasicInterface bInterface(eventQueue,messageQueue);
     BasicGui gInterface(eventQueue,messageQueue);
-    UserInterface &interface(bInterface);
-    BasicGame game(interface, eventQueue,messageQueue);
+    UserInterface &interface(gInterface);
+    BasicGame bGame(interface, eventQueue,messageQueue);
+    CoOpGame nGame(interface,eventQueue,messageQueue);
+
+    Game & game(nGame);
     game.init();
     game.gameLoop();
     //game.summary()

@@ -30,7 +30,8 @@ void BasicGame::retractMove()
     }
     auto &move = _moves.getRoot()->prev()->_value;
 
-    _sudoku.retractMove(move);
+    move._meta = Sudoku::SudokuMeta::Retract;
+    _sudoku.applyMove(move);
     _moves.pop_back();
 }
 void BasicGame::askForHint(SudokuCoords coords)

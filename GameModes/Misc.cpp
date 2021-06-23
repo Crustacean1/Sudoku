@@ -37,6 +37,10 @@ void MistakeCounter::reset() { _mistakes = 0; }
 
 bool MistakeCounter::check(Sudoku &sudoku, Move &move)
 {
+    if (move._meta == Sudoku::SudokuMeta::Note || move._meta == Sudoku::SudokuMeta::Retract)
+    {
+        return true;
+    }
     if (Sudoku::getNumber(sudoku[move._pos._row][move._pos._column]) != move._number && move._meta != Sudoku::SudokuMeta::Note)
     {
         _mistakes = std::min(_mistakes + 1, _tolerance);
@@ -45,7 +49,7 @@ bool MistakeCounter::check(Sudoku &sudoku, Move &move)
     }
     return true;
 }
-bool MistakeCounter::gameOver() const { return _mistakes == _tolerance; };
+bool MistakeCounter::gameOver() const { return (_mistakes == _tolerance && _tolerance != 0); };
 unsigned int MistakeCounter::getMistakes() const { return _mistakes; }
 unsigned int MistakeCounter::getTolerance() const { return _tolerance; }
 void MistakeCounter::setTolerance(unsigned int limit)
@@ -83,7 +87,7 @@ unsigned int Timer::limitAsSeconds() const
 }
 bool Timer::isOver() const
 {
-    return ((_mode==Clock) || limitAsSeconds() < asSeconds());
+    return ((_mode == Clock) || limitAsSeconds() < asSeconds());
 }
 std::string Timer::write() const
 {
@@ -92,9 +96,13 @@ std::string Timer::write() const
     switch (_mode)
     {
     case Countdown:
-        return "Time left: " + std::to_string(time1 / 60) + ":" + std::to_string(time1 % 60) + "/" + std::to_string(time2 / 60) + ":" + std::to_string(time2 % 60);
+        return "Time left: " + std::to_string((time2 - time1) / 60) + ":" + std::to_string((time2 - time1) % 60) + "/" + std::to_string(time2 / 60) + ":" + std::to_string(time2 % 60);
     case Clock:
         return "Time: " + std::to_string(time1 / 60) + ":" + std::to_string(time1 % 60);
     }
     return "";
+}
+void Timer::setLimit(unsigned int seconds)
+{
+    _limit = std::chrono::seconds(seconds);
 }

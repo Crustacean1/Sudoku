@@ -30,7 +30,8 @@ public:
         Note,
         Filled,
         Occupied,
-        Invalid
+        Invalid,
+        Retract
     };
 
 private:

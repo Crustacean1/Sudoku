@@ -6,6 +6,8 @@
 #include <boost/bind.hpp>
 #include "Move/Move.h"
 #include "Sudoku/Sudoku.h"
+#include <chrono>
+#include <thread>
 
 using boost::asio::ip::tcp;
 
@@ -17,30 +19,29 @@ public:
     NetworkClient(boost::asio::io_context &io, std::string ip)
     {
         tcp::resolver resolver(io);
-        _endpoints = resolver.resolve(ip, "2137");
+        _endpoints = resolver.resolve(ip, "7312");
     }
     void connect(tcp::socket &socket)
     {
         boost::asio::connect(socket, _endpoints);
     }
 };
-template <typename T, typename C>
+template <typename T>
 class NetworkServer
 {
-    typedef void (T::*Callback)(C &);
+    typedef void (T::*Callback)(const boost::system::error_code &);
     Callback _callback;
     T *_t;
-    C *_c;
     boost::asio::io_context &_io;
 
 public:
-    NetworkServer(boost::asio::io_context &io, C *c, T *t, Callback &callback) : _callback(callback), _c(c), _t(t), _io(io)
+    NetworkServer(boost::asio::io_context &io, T *t, Callback callback) : _callback(callback), _t(t), _io(io)
     {
     }
     void connect(tcp::socket &socket)
     {
-        tcp::acceptor acceptor(_io, tcp::endpoint(tcp::v4(), 2137));
-        acceptor.async_accept(socket, boost::bind(_callback, _t, _c, boost::asio::placeholders::error));
+        tcp::acceptor acceptor(_io, tcp::endpoint(tcp::v4(), 7312));
+        acceptor.accept(socket);
     }
 };
 
@@ -51,8 +52,8 @@ class NetworkModule
     {
         Move move;
         unsigned char raw[sizeof(Move)];
-        Buffer(): move(SudokuCoords(0,0),0,Sudoku::SudokuMeta::Empty){}
-        ~Buffer(){}
+        Buffer() : move(SudokuCoords(0, 0), 0, Sudoku::SudokuMeta::Empty) {}
+        ~Buffer() {}
     };
     Buffer _buffer;
 

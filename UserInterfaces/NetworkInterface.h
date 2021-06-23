@@ -2,18 +2,17 @@
 #define NETWORKINTERFACE
 
 #include "UserInterface.h"
+#include "GameModes/NetworkModule.h"
 #include <boost/asio.hpp>
 
 using boost::asio::ip::tcp;
 
 class NetworkInterface : public UserInterface
 {
-    boost::asio::io_context &_io;
-    tcp::socket _socket;
-    void accept(Game *game, const boost::system::error_code &error);
-
+    NetworkModule &_networkModule;
+    void receiveMoves(Move & move);
 public:
-    NetworkInterface(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue, boost::asio::io_context &io);
+    NetworkInterface(LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue,NetworkModule & module);
     void initiate(Game &game);
     void clear();
     void render(Game &game);

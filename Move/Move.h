@@ -12,14 +12,17 @@ private:
     uint8_t _prevNumber;
 
 public:
-    Move(SudokuCoords pos, uint8_t number,Sudoku::SudokuMeta meta);
+    Move(SudokuCoords pos, uint8_t number, Sudoku::SudokuMeta meta, bool remote = false);
 
     Sudoku::SudokuMeta _meta;
     SudokuCoords _pos;
     uint8_t _number;
+    bool _remote;
 
     void apply(uint8_t **board);
     void retract(uint8_t **board) const;
+
+    bool compare(Move &move);
 
     ~Move();
 };

@@ -57,12 +57,14 @@ public:
     TimerMode _mode;
 
     Timer(unsigned int timeLimit = 0, TimerMode mode = Clock);
+    void setMode(TimerMode mode);
     void start();
     void stop();
     bool isActive() const;
     bool isOver() const;
     unsigned int limitAsSeconds() const;
     unsigned int asSeconds() const;
+    void setLimit(unsigned int seconds);
 
     std::string write()const;
 };

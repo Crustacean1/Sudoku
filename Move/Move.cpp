@@ -1,7 +1,7 @@
 #include "Move.h"
 #include "../Sudoku/Sudoku.h"
 
-Move::Move(SudokuCoords pos, uint8_t number, Sudoku::SudokuMeta meta) : _prevNumber(0), _meta(meta), _pos(pos), _number(number)
+Move::Move(SudokuCoords pos, uint8_t number, Sudoku::SudokuMeta meta, bool remote) : _prevNumber(0), _meta(meta), _pos(pos), _number(number), _remote(remote)
 {
 }
 void Move::apply(uint8_t **board)
