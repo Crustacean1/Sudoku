@@ -3,14 +3,14 @@
 
 #include "Game.h"
 #include <boost/asio.hpp>
-//UserInterface &interface
-//UserInterface&interface
+#include "NetworkModule.h"
+
 using boost::asio::ip::tcp;
 
 class CoOpGame : public Game
 {
     boost::asio::io_context _io;
-    tcp::socket _socket;
+    NetworkModule * _networkModule;
 public:
     CoOpGame(UserInterface&interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue);
     void applyMove(Move &move);
