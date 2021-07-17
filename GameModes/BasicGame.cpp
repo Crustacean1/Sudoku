@@ -1,7 +1,7 @@
 #include "BasicGame.h"
 #include "SudokuGenerator/SudokuGenerator.h"
 #include "UserInterfaces/UserInterface.h"
-
+#include "Sudoku/Sudoku.h"
 BasicGame::BasicGame(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : Game(interface, eventQueue, messageQueue)
 {
     _hint.setMaxHintCount(3);
@@ -14,24 +14,9 @@ void BasicGame::applyMove(Move &move)
     {
         return;
     }
-    _counter.check(_filledSudoku, move);
-    _sudoku.applyMove(move);
-    _moves.push_back(move);
-}
-void BasicGame::retractMove()
-{
-    if (_state == Pause)
-    {
-        return;
-    }
-    if (_moves.getRoot() == nullptr)
-    {
-        return;
-    }
-    auto &move = _moves.getRoot()->prev()->_value;
+    //_counter.check(_filledSudoku, move);
 
-    _sudoku.retractMove(move);
-    _moves.pop_back();
+    move.apply(_moves,_sudoku);
 }
 void BasicGame::askForHint(SudokuCoords coords)
 {

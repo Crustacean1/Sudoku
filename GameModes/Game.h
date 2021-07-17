@@ -70,8 +70,6 @@ public:
 
     /** Applies move to sudoku*/
     virtual void applyMove(Move &move) = 0;
-    /** Undoes a last move*/
-    virtual void retractMove() = 0;
     /** Reveals one hidden cell*/
     virtual void askForHint(SudokuCoords coords) = 0;
 

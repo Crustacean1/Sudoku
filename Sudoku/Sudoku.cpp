@@ -79,32 +79,19 @@ bool Sudoku::checkBox(uint16_t rbox, uint16_t cbox, uint8_t number) const
     }
     return true;
 }
-bool Sudoku::check(uint16_t row, uint16_t column, uint8_t number)
-{
-    return checkRow(row, number) &&
-           checkColumn(column, number) &&
-           checkBox(row / _rootSize, column / _rootSize, number);
+bool Sudoku::check(uint16_t row, uint16_t column, uint8_t number, SudokuMeta meta) {
+  if (meta == SudokuMeta::Note &&
+      getMeta(_board[row][column]) == SudokuMeta::Empty) {
+    return true;
+  }
+  return getMeta(_board[row][column]) == SudokuMeta::Empty &&
+         checkRow(row, number) && checkColumn(column, number) &&
+         checkBox(row / _rootSize, column / _rootSize, number);
 }
-void Sudoku::applyMove(Move &move)
-{
-    if (move._number > _size)
-    {
-        return;
-    }
-    auto meta = getMeta((*this)[move._pos]);
-    if (meta == SudokuMeta::Empty || meta == SudokuMeta::Note)
-    {
-        if (!check(move._pos._row, move._pos._column, move._number))
-        {
-            move._meta = SudokuMeta::Invalid;
-        }
-        move.apply(_board);
-    }
+void Sudoku::applyMove(SudokuCoords &coords, uint8_t cell) {
+  _board[coords._row][coords._column] = cell;
 }
-void Sudoku::retractMove(const Move &move)
-{
-    move.retract(_board);
-}
+
 bool Sudoku::isComplete() const
 {
     SudokuMeta meta;
