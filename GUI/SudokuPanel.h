@@ -44,6 +44,7 @@ class SudokuPanel : public Layout<Vertical>
 public:
     SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, Game::GameState &state, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue);
     bool action(const sf::Vector2i &position, const sf::Event &type);
+    ~SudokuPanel();
 };
 
 #endif /*SUDOKUPANEL*/

@@ -47,7 +47,10 @@ LinkedList<T>::LinkedList(const V &...v) : _root(nullptr)
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
-    delete _root;
+    if (_root != nullptr)
+    {
+        delete _root;
+    }
 }
 template <typename T>
 template <typename... V>

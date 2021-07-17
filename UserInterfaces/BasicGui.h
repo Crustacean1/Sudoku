@@ -11,7 +11,6 @@ class BasicGui : public UserInterface
 {
     sf::RenderWindow _window;
     std::unique_ptr<Layout<Vertical>> _guiRoot;
-    std::unique_ptr<Drawable> _sudokuBoard;
     std::unique_ptr<Message> _messageRoot;
     //std::unique_ptr<GUI::GuiNode<GUI::GuiNode, GUI::GuiNode, GUI::GuiNode>> _node;
     void processMouse(sf::Event & event);
@@ -26,6 +25,7 @@ public:
     void input();
     void display();
     void clear();
+    ~BasicGui();
 };
 
 #endif /*BASICGUI*/

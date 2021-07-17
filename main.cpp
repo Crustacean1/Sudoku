@@ -6,26 +6,15 @@
 
 int main(int argc, char **argv)
 {
-    
-    /*int a = (argc > 1 && argv[1][0] > '0' && argv[1][0] < '9') ? (argv[1][0] - '0') : 3;
-    SudokuGenerator generator(a);
-    try
-    {
-        auto sudoku = generator.generate();
-        std::cout << std::get<0>(sudoku) << std::endl;
-        std::cout << std::get<1>(sudoku) << std::endl;
-    }
-    catch (const std::string &e)
-    {
-        std::cerr << e << '\n';
-    }*/
     LinkedList<std::unique_ptr<Event>> eventQueue;
     LinkedList<std::string> messageQueue;
-    BasicInterface bInterface(eventQueue,messageQueue);
-    BasicGui gInterface(eventQueue,messageQueue);
-    UserInterface &interface(bInterface);
-    BasicGame game(interface, eventQueue,messageQueue);
-    game.init();
-    game.gameLoop();
-    //game.summary()
+    UserInterface *interface = new BasicInterface(eventQueue, messageQueue);
+    Game *game = new BasicGame(*interface, eventQueue, messageQueue);
+
+    game->init();
+    game->gameLoop();
+    delete interface;
+    delete game;
+    std::cout<<(int)eventQueue.count()<<std::endl;
+    std::cout<<messageQueue.count()<<std::endl;
 }

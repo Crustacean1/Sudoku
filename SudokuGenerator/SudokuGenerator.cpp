@@ -236,7 +236,7 @@ std::tuple<Sudoku, Sudoku> SudokuGenerator::generate()
     else
     {
         sudoku = src;
-        randomSudokuTrim(sudoku, sudoku.getSize() * sudoku.getSize() * 0.4); // 0.4 correlates to difficulty
+        randomSudokuTrim(sudoku, sudoku.getSize() * sudoku.getSize() * 0.7); // 0.7 correlates to difficulty
     }
 
     //cleaning up

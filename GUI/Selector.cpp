@@ -81,3 +81,5 @@ char Selector::getNumber(const sf::Vector2i &position, Event::EventType &event)
     }
     return 0;
 }
+Selector::~Selector()
+{}

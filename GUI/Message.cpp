@@ -42,7 +42,8 @@ sf::IntRect Text::getBoundingBox() const
 {
     return static_cast<sf::IntRect>(_text.getGlobalBounds());
 }
-
+Text::~Text()
+{}
 Message::Message(const std::string &content, sf::RenderWindow &window) : Layout<Vertical>(sf::IntRect(0,0,0,0), std::unique_ptr<Drawable>(new Text(content)),
                                                                                           std::unique_ptr<BaseButton>(new Button(sf::IntRect(0, 0, 100, 50), (_buttonTexture.loadFromFile("OKbutton.png"), _buttonTexture), this, &Message::accept))),
                                                                          _accepted(false)

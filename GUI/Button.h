@@ -20,6 +20,7 @@ public:
     bool action(const sf::Vector2i &position, const sf::Event &type);
 
     void setTexture(sf::Texture &tex);
+    ~BaseButton();
 };
 
 template <typename T>

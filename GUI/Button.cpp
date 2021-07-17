@@ -14,6 +14,10 @@ void BaseButton::setPosition(const sf::Vector2f &position)
 {
     _shape.setPosition(position);
 }
+BaseButton::~BaseButton()
+{
+    
+}
 sf::Vector2f BaseButton::getPosition() const
 {
     return _shape.getPosition();

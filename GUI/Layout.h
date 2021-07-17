@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "LinkedList/LinkedList.h"
+#include <iostream>
 #include "GUI/Drawable.h"
 
 class Horizontal
@@ -69,8 +70,9 @@ public:
     void addChild(std::unique_ptr<Drawable> &&child);
 
     bool action(const sf::Vector2i &position, const sf::Event &type);
-    void setOuterBox(const sf::IntRect & box);
+    void setOuterBox(const sf::IntRect &box);
     void realign();
+    ~Layout();
 };
 
 template <typename T>
@@ -166,10 +168,14 @@ void Layout<T>::realign()
     computeInnerBounds();
     adjustPosition();
 }
-template<typename T>
-void Layout<T>::setOuterBox(const sf::IntRect & box)
+template <typename T>
+void Layout<T>::setOuterBox(const sf::IntRect &box)
 {
     _outerBoundingBox = box;
     realign();
+}
+template <typename T>
+Layout<T>::~Layout()
+{
 }
 #endif /*BASELAYOUT*/

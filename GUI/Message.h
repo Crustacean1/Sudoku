@@ -17,6 +17,7 @@ public:
     void setPosition(const sf::Vector2f &position);
     sf::Vector2f getPosition() const;
     sf::IntRect getBoundingBox() const;
+    ~Text();
 };
 class Message : public Layout<Vertical>
 {

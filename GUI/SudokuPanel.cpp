@@ -5,8 +5,8 @@
 
 SudokuPanel::SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, Game::GameState &state,
                          LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : Layout<Vertical>(sf::IntRect(0, 0, 0, window.getSize().y * 0.75)),
-                                                                                                                  _size(50), _eventQueue(eventQueue), _messageQueue(messageQueue),
-                                                                                                                  _sudoku(sudoku), _state(state)
+                                                                                                                  _size(100), _eventQueue(eventQueue), _messageQueue(messageQueue),
+                                                                                                                  _eType(Event::EventType::VoidEvent), _sudoku(sudoku), _state(state)
 {
     generateDigitTexture(sudoku.getRootSize());
     loadTextures();
@@ -14,7 +14,7 @@ SudokuPanel::SudokuPanel(sf::RenderWindow &window, Sudoku &sudoku, Game::GameSta
     auto pauseButton = std::unique_ptr<BaseButton>(new ToggleButton<SudokuPanel>(sf::IntRect(0, 0, 50, 50), _pauseTexture, _resumeTexture, this, &SudokuPanel::pause));
     auto hintButton = std::unique_ptr<BaseButton>(new Button(sf::IntRect(0, 0, 50, 50), _hintTexture, this, &SudokuPanel::hint));
 
-    auto sudokuBoard = std::unique_ptr<Drawable>(_sudokuBoard = new SudokuBoard(sudoku, state, _digitsTexture)); // Terrible, terrible idea, don't ever do this
+    auto sudokuBoard = std::unique_ptr<Drawable>(_sudokuBoard = new SudokuBoard(sudoku, state, _digitsTexture, window.getSize().y * 0.65f / (float)_sudoku.getSize())); // Terrible, terrible idea, don't ever do this
     auto selector = std::unique_ptr<Drawable>(_selector = new Selector(sudoku, _digitsTexture));
 
     auto buttonStrip = std::unique_ptr<Drawable>(_buttonStrip = new Layout<Horizontal>(sf::IntRect(0, 0,
@@ -109,6 +109,10 @@ void SudokuPanel::hint() { _eType = Event::EventType::HintEvent; }
 void SudokuPanel::postEvent(sf::Vector2i pos, unsigned char number)
 {
     auto event = std::unique_ptr<Event>(Event::createEvent(_eType));
+    if (event == nullptr)
+    {
+        return;
+    }
     event->_data.move._coords = SudokuCoords(pos.y, pos.x);
     event->_data.move._number = number;
     _eventQueue.push_back(std::move(event));
@@ -116,6 +120,10 @@ void SudokuPanel::postEvent(sf::Vector2i pos, unsigned char number)
 void SudokuPanel::postEvent()
 {
     auto event = std::unique_ptr<Event>(Event::createEvent(_eType));
+    if (event == nullptr)
+    {
+        return;
+    }
     _eventQueue.push_back(std::move(event));
     _eType = Event::EventType::VoidEvent;
 }
@@ -125,4 +133,7 @@ void SudokuPanel::loadTextures()
     _undoTexture.loadFromFile("undo.png");
     _pauseTexture.loadFromFile("pause.png");
     _resumeTexture.loadFromFile("resume.png");
+}
+SudokuPanel::~SudokuPanel()
+{
 }

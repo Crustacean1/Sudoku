@@ -32,6 +32,7 @@ public:
     sf::IntRect getBoundingBox() const;
 
     char getNumber(const sf::Vector2i &position,Event::EventType & event);
+    ~Selector();
 };
 
 #endif /*SELECTOR*/

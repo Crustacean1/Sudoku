@@ -13,6 +13,7 @@ public:
     virtual void setPosition(const sf::Vector2f &position) = 0;
 
     virtual bool action(const sf::Vector2i &position, const sf::Event &type) { return false; }
+    virtual ~Drawable(){}
 };
 
 #endif /*DRAWABLE*/

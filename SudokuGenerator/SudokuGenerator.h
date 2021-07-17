@@ -2,7 +2,13 @@
 #define SUDOKUGENERATOR
 
 #define __DEBUG(x) std::cout << __LINE__ << " : " << #x << " = " << (x) << std::endl;
-#define __ASSERT(x) if(!(x)){std::cerr<<"assertion failed: "<<"line: "<<__LINE__<<" "<<#x<<std::endl;exit(-1);}
+#define __ASSERT(x)                                                  \
+    if (!(x))                                                        \
+    {                                                                \
+        std::cerr << "assertion failed: "                            \
+                  << "line: " << __LINE__ << " " << #x << std::endl; \
+        exit(-1);                                                    \
+    }
 #define __LOG(x) std::cout << x << std::endl;
 
 #include <cstdint>
@@ -15,14 +21,19 @@ class Sudoku;
 /** Class responsible for sudoku generation*/
 class SudokuGenerator
 {
+    /** Structure representing node in sparse matrix**/
     struct SudokuNode
     {
+        /** encoded position and value on board**/
         uint16_t value;
+        /** Linked list containing row**/
         LinkedNode<SudokuNode *> *row;
+        /**Linked list containing column**/
         LinkedNode<SudokuNode *> *col;
+        /** Pointer to column header**/
         SudokuNode *header;
 
-        uint32_t global_id =0;
+        uint32_t global_id = 0;
 
         SudokuNode() : value(0), row(new LinkedNode<SudokuNode *>(this)), col(new LinkedNode<SudokuNode *>(this)), header(nullptr) {}
         SudokuNode(uint16_t val) : value(val), row(new LinkedNode<SudokuNode *>(this)), col(new LinkedNode<SudokuNode *>(this)), header(nullptr) {}
@@ -52,7 +63,7 @@ private:
     bool algorithmX(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
 
     void applySolution(LinkedNode<SudokuNode *> *solution);
-    void revertSolution(LinkedNode<SudokuNode*> * solution);
+    void revertSolution(LinkedNode<SudokuNode *> *solution);
 
     static void dropNode(SudokuNode *node);
     static void restoreNode(SudokuNode *node);
@@ -62,13 +73,13 @@ private:
     Sudoku constructSudoku(LinkedNode<SudokuNode *> *solution);
 
     Sudoku generateMinimalSudoku(SudokuNode *header, LinkedNode<SudokuNode *> *solution);
-    void randomSudokuTrim(Sudoku & sudoku,unsigned int scale);
+    void randomSudokuTrim(Sudoku &sudoku, unsigned int scale);
 
     bool isSudokuAmbiguous(SudokuNode *header, uint8_t &ambiguity);
 
 public:
     SudokuGenerator(uint16_t rootSize);
-    std::tuple<Sudoku,Sudoku> generate();
+    std::tuple<Sudoku, Sudoku> generate();
     ~SudokuGenerator();
 };
 

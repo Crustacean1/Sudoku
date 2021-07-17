@@ -12,7 +12,6 @@ class Label : public Drawable
     std::string _prevContent;
     Widget &_widget;
     unsigned int _size;
-
 public:
     sf::Text _text;
 
@@ -24,6 +23,8 @@ public:
     sf::IntRect getBoundingBox() const;
 
     void setText(const std::string &text);
+    
+    ~Label();
 };
 
 #endif /*LABEL*/

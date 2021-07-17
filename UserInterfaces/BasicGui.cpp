@@ -62,7 +62,6 @@ void BasicGui::input()
         case sf::Event::Closed:
 
             _eventQueue.push_back(std::unique_ptr<Event>(Event::createEvent(Event::EventType::ExitEvent)));
-            _window.close();
             break;
         case sf::Event::Resized:
             resizeHandler(sf::Vector2i(event.size.width, event.size.height));
@@ -92,4 +91,11 @@ void BasicGui::resizeHandler(sf::Vector2i size)
     sf::FloatRect rect(sf::Vector2f(0, 0), (sf::Vector2f)size);
     _window.setView(sf::View(rect));
     _guiRoot->setOuterBox(sf::IntRect(sf::Vector2i(0, 0), size));
+}
+BasicGui::~BasicGui()
+{
+    _window.close();
+    std::cout<<"BasicGui"<<std::endl;
+    _guiRoot.reset(nullptr);
+    _messageRoot.reset(nullptr);
 }

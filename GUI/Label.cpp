@@ -39,3 +39,7 @@ void Label::setText(const std::string &text)
     auto bbox = _text.getGlobalBounds();
     _text.setOrigin(bbox.width/2,bbox.height/2);
 }
+Label::~Label()
+{
+    
+}
