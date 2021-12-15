@@ -21,11 +21,15 @@ int main(int argc, char **argv)
     }*/
     LinkedList<std::unique_ptr<Event>> eventQueue;
     LinkedList<std::string> messageQueue;
+
     BasicInterface bInterface(eventQueue,messageQueue);
     BasicGui gInterface(eventQueue,messageQueue);
-    UserInterface &interface(bInterface);
+
+    UserInterface &interface(gInterface);//(bInterface)
     BasicGame game(interface, eventQueue,messageQueue);
+
+    game.setBoardSize(3);
     game.init();
     game.gameLoop();
-    //game.summary()
+    //game.summary() game results ( not implemented )
 }

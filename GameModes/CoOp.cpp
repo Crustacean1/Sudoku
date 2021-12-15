@@ -13,6 +13,10 @@ void CoOpGame::init()
     std::string ip;
     std::cin>>ip;
     tcp::resolver resolver(_io);
-    tcp::resolver::endpoint_type enpoints = 
-    resolver.resolve()
+    //tcp::resolver::endpoint_type enpoints = 
+    //resolver.resolve()
 }
+void CoOpGame::applyMove(Move &move){}
+void CoOpGame::retractMove(){}
+void CoOpGame::askForHint(SudokuCoords coords){}
+void CoOpGame::gameLoop(){}

@@ -2,7 +2,7 @@
 #include "SudokuGenerator/SudokuGenerator.h"
 #include "UserInterfaces/UserInterface.h"
 
-BasicGame::BasicGame(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : Game(interface, eventQueue, messageQueue)
+BasicGame::BasicGame(UserInterface &interface, LinkedList<std::unique_ptr<Event>> &eventQueue, LinkedList<std::string> &messageQueue) : Game(interface, eventQueue, messageQueue),_sudokuSize(3)
 {
     _hint.setMaxHintCount(3);
     _counter.setTolerance(3);
@@ -63,6 +63,9 @@ bool BasicGame::restartTimer(GameState state)
     _timer.start();
     return true;
 }
+void BasicGame::setBoardSize(size_t size){
+    _sudokuSize = size;
+}
 void BasicGame::checkExitConditions()
 {
     if (_sudoku.isComplete() || _counter.gameOver())
@@ -72,7 +75,7 @@ void BasicGame::checkExitConditions()
 }
 void BasicGame::init()
 {
-    SudokuGenerator generator(3);
+    SudokuGenerator generator(_sudokuSize);
     std::tie(_filledSudoku, _baseSudoku) = generator.generate();
     _sudoku = _baseSudoku;
     _state = Play;

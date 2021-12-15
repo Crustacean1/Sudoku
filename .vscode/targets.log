@@ -1,0 +1,913 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+ 
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Wed Dec 15 19:11:12 2021
+
+# Variables
+
+# environment
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+NO_AT_BRIDGE = 1
+# environment
+I3SOCK = /run/user/1003/i3/ipc-socket.4108
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1003/vscode-ipc-66d05d96-d618-4051-bb4f-79e7282bbe5c.sock
+# environment
+VSCODE_CWD = /home/kamil2
+# default
+MAKE_COMMAND := make
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/kamil2/Desktop/Programming/C++/Exercises/Uni/SudokuGame
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+MAIL = /var/spool/mail/kamil2
+# environment
+OLDPWD = /home/kamil2
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+VSCODE_LOG_STACK = false
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /home/kamil2/.config/Code - OSS/CachedData/b3318bc0524af3d74034b8bb8a64df0ccf35549a
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session2
+# environment
+LANG = C
+# environment
+XAUTHORITY = /home/kamil2/.Xauthority
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/kamil2/Desktop/Programming/C++/Exercises/Uni/SudokuGame
+# makefile (from 'Makefile', line 6)
+DEPENDS = ${OBJECTS:.o=.d} main.d
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# default
+.SHELLFLAGS := -c
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = i3
+# environment
+VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"Code - OSS","submitURL":"","uploadToServer":false}
+# makefile (from 'main.d', line 1)
+MAKEFILE_LIST := Makefile main.d Event/Event.d Event/HintEvent.d Event/MoveEvent.d Event/StateEvent.d Event/UndoEvent.d GUI/Button.d GUI/Label.d GUI/Layout.d GUI/Message.d GUI/Selector.d GUI/SudokuBoard.d GUI/SudokuPanel.d GameModes/BasicGame.d GameModes/CoOp.d GameModes/Game.d GameModes/Misc.d Move/Move.d Sudoku/Sudoku.d SudokuGenerator/SudokuGenerator.d UserInterfaces/BasicGui.d UserInterfaces/BasicInterface.d UserInterfaces/NetworkInterface.d main.d
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+VSCODE_PID = 62924
+# environment
+XDG_SESSION_TYPE = x11
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-oss.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1003/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+BREAKPAD_DUMP_LOCATION = /home/kamil2/.config/Code - OSS/exthost Crash Reports
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 0
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin
+# default
+MAKEFILES := 
+# environment
+MOTD_SHOWN = pam
+# automatic
+^F = $(notdir $^)
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?F = $(notdir $?)
+# environment
+XDG_SEAT = seat0
+# environment
+XDG_CURRENT_DESKTOP = i3
+# automatic
++F = $(notdir $+)
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+DESKTOP_SESSION = i3
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = i3
+# makefile (from 'Makefile', line 2)
+OBJECTS := main.o Event/Event.o Event/HintEvent.o Event/MoveEvent.o Event/StateEvent.o Event/UndoEvent.o GUI/Button.o GUI/Label.o GUI/Layout.o GUI/Message.o GUI/Selector.o GUI/SudokuBoard.o GUI/SudokuPanel.o GameModes/BasicGame.o GameModes/CoOp.o GameModes/Game.o GameModes/Misc.o Move/Move.o Sudoku/Sudoku.o SudokuGenerator/SudokuGenerator.o UserInterfaces/BasicGui.o UserInterfaces/BasicInterface.o UserInterfaces/NetworkInterface.o
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = kamil2
+# environment
+XDG_VTNR = 1
+# makefile
+.DEFAULT_GOAL := SudokuGame
+# environment
+DISPLAY = :0
+# environment
+GTK_MODULES = canberra-gtk-module
+# environment
+USER = kamil2
+# default
+MAKE_VERSION := 4.3
+# 'override' directive
+.SHELLSTATUS := 0
+# environment
+_ = /usr/bin/make
+# environment
+XDG_RUNTIME_DIR = /run/user/1003
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+HOME = /home/kamil2
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1003/vscode-b3071441-1.62.0-main.sock
+# environment
+XDG_SESSION_ID = 2
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# makefile (from 'Makefile', line 3)
+TARGET := SudokuGame
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# makefile (from 'Makefile', line 5)
+CXXFLAGS = -O3 -g -Wall -Werror -std=c++20 -MMD -I ./  /home/kamil2/Libraries/boost_1_72_0/
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
+# makefile (from 'Makefile', line 4)
+CXX = g++
+# makefile (from 'Makefile', line 1)
+SOURCES := main.cpp Event/Event.cpp Event/HintEvent.cpp Event/MoveEvent.cpp Event/StateEvent.cpp Event/UndoEvent.cpp GUI/Button.cpp GUI/Label.cpp GUI/Layout.cpp GUI/Message.cpp GUI/Selector.cpp GUI/SudokuBoard.cpp GUI/SudokuPanel.cpp GameModes/BasicGame.cpp GameModes/CoOp.cpp GameModes/Game.cpp GameModes/Misc.cpp Move/Move.cpp Sudoku/Sudoku.cpp SudokuGenerator/SudokuGenerator.cpp UserInterfaces/BasicGui.cpp UserInterfaces/BasicInterface.cpp UserInterfaces/NetworkInterface.cpp
+# variable set hash-table stats:
+# Load=92/1024=9%, Rehash=0, Collisions=4/178=2%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# Move (device 2065, inode 30285956): 6 files, no impossibilities.
+# LinkedList (device 2065, inode 30415913): 3 files, no impossibilities.
+# LinkedNode (device 2065, inode 30415851): 3 files, no impossibilities.
+# latex (device 2065, inode 30287142): 109 files, no impossibilities.
+# SudokuGenerator (device 2065, inode 30415888): 6 files, no impossibilities.
+# . (device 2065, inode 30285854): 30 files, no impossibilities.
+# GUI (device 2065, inode 30285976): 31 files, no impossibilities.
+# Event (device 2065, inode 30286471): 22 files, no impossibilities.
+# Sudoku (device 2065, inode 30415905): 6 files, no impossibilities.
+# html (device 2065, inode 30286836): 175 files, no impossibilities.
+# UserInterfaces (device 2065, inode 30545464): 15 files, no impossibilities.
+# Screenshots (device 2065, inode 30294141): 5 files, no impossibilities.
+# GameModes (device 2065, inode 30677089): 18 files, no impossibilities.
+
+# 429 files, no impossibilities in 13 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+GameModes/Misc.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+SudokuGenerator/SudokuGenerator.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:36.718099386
+#  File has been updated.
+#  Successfully updated.
+
+GUI/Message.o: GUI/Message.cpp GUI/Message.h GUI/Layout.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GUI/Drawable.h GUI/Button.h GUI/Drawable.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Layout.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/SudokuBoard.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Move/Move.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:35.328087569
+#  File has been updated.
+#  Successfully updated.
+
+GUI/Button.o: GUI/Button.cpp GUI/Button.h GUI/Drawable.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/BasicInterface.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:40.528131777
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+SudokuGenerator/../SudokuGenerator/SudokuGenerator.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Layout.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:29.134701583
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Event/MoveEvent.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/BasicGame.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Layout.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GameModes/BasicGame.o: GameModes/BasicGame.cpp GameModes/BasicGame.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h Event/Event.h GameModes/Game.h GameModes/Misc.h SudokuGenerator/SudokuGenerator.h SudokuGenerator/../LinkedNode/LinkedNode.h UserInterfaces/UserInterface.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/Event.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:14.224574826
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/Label.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:28.081359295
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/Message.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:30.431379274
+ 
+#  File has been updated.
+#  Successfully updated.
+
+UserInterfaces/BasicGui.o: UserInterfaces/BasicGui.cpp UserInterfaces/BasicGui.h UserInterfaces/UserInterface.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h GUI/Drawable.h GUI/Message.h GUI/Layout.h Event/Event.h GUI/SudokuPanel.h GUI/SudokuBoard.h GUI/Selector.h GUI/Layout.h GUI/Label.h GUI/Drawable.h GameModes/Misc.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/BasicGame.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:18.394610276
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Event/StateEvent.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Sudoku/Sudoku.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:37.428105422
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:06.657843829
+#  File has been updated.
+#  Successfully updated.
+
+SudokuGenerator/SudokuGenerator.o: SudokuGenerator/SudokuGenerator.cpp SudokuGenerator/../SudokuGenerator/SudokuGenerator.h SudokuGenerator/../SudokuGenerator/../LinkedNode/LinkedNode.h SudokuGenerator/../Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/CoOp.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GUI/Selector.o: GUI/Selector.cpp GUI/Selector.h GUI/Drawable.h GUI/SudokuBoard.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h GUI/Layout.h Event/Event.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/HintEvent.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+LinkedList/LinkedList.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Sudoku/Sudoku.o: Sudoku/Sudoku.cpp Sudoku/Sudoku.h Sudoku/../Move/Move.h Sudoku/../Move/../LinkedNode/LinkedNode.h Sudoku/../Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/MoveEvent.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Move/../Sudoku/Sudoku.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/SudokuBoard.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:33.141402313
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/SudokuPanel.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 14):
+	rm -f *.o
+	rm -f */*.o
+	rm -f *.d
+	rm -f */*.d
+
+# Not a target:
+Event/MoveEvent.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:15.734587663
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/SudokuBoard.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Event/HintEvent.o: Event/HintEvent.cpp Event/HintEvent.h Event/Event.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Sudoku/../Move/../LinkedNode/LinkedNode.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/Event.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/NetworkInterface.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+SudokuGenerator/SudokuGenerator.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GameModes/CoOp.o: GameModes/CoOp.cpp GameModes/CoOp.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/UserInterface.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+UserInterfaces/NetworkInterface.o: UserInterfaces/NetworkInterface.cpp UserInterfaces/NetworkInterface.h UserInterfaces/UserInterface.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Move/Move.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Message.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GUI/Label.o: GUI/Label.cpp GUI/Label.h GUI/Drawable.h GameModes/Misc.h Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/BasicInterface.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+Event/StateEvent.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Event/UndoEvent.o: Event/UndoEvent.cpp Event/UndoEvent.h Event/Event.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Label.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/HintEvent.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:14.957914392
+#  File has been updated.
+#  Successfully updated.
+
+Event/MoveEvent.o: Event/MoveEvent.cpp Event/MoveEvent.h Event/Event.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/StateEvent.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:16.524594379
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GameModes/Game.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GUI/Layout.o: GUI/Layout.cpp GUI/Layout.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GUI/Drawable.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Move/../LinkedNode/LinkedNode.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Button.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/BasicGame.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/SudokuPanel.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+SudokuGenerator/../LinkedNode/LinkedNode.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Button.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:26.891349178
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/SudokuPanel.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:34.77141617
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GameModes/Misc.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:25.861340422
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+main.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/Event.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Event/StateEvent.o: Event/StateEvent.cpp Event/StateEvent.h Event/Event.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Button.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/UndoEvent.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Sudoku/Sudoku.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GUI/SudokuPanel.o: GUI/SudokuPanel.cpp GUI/SudokuPanel.h GUI/SudokuBoard.h GUI/Drawable.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h GUI/Selector.h GUI/Layout.h Event/Event.h GUI/Layout.h Event/MoveEvent.h Event/Event.h GUI/Button.h GUI/Drawable.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ 
+main.o: main.cpp GameModes/BasicGame.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h Event/Event.h GameModes/Game.h GameModes/Misc.h UserInterfaces/BasicInterface.h UserInterfaces/UserInterface.h UserInterfaces/BasicGui.h GUI/Drawable.h GUI/Message.h GUI/Layout.h Event/Event.h SudokuGenerator/SudokuGenerator.h SudokuGenerator/../LinkedNode/LinkedNode.h main.cpp GameModes/BasicGame.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h Event/Event.h GameModes/Game.h GameModes/Misc.h UserInterfaces/BasicInterface.h UserInterfaces/UserInterface.h UserInterfaces/BasicGui.h GUI/Drawable.h GUI/Message.h GUI/Layout.h Event/Event.h SudokuGenerator/SudokuGenerator.h SudokuGenerator/../LinkedNode/LinkedNode.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Event/Event.o: Event/Event.cpp Event/Event.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h Event/MoveEvent.h Event/HintEvent.h Event/UndoEvent.h Event/StateEvent.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Selector.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:31.731390326
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/Message.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/BasicGui.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/BasicGui.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:39.061452642
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GUI/Selector.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Move/Move.o: Move/Move.cpp Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Sudoku/../Move/Move.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/Game.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GameModes/Game.o: GameModes/Game.cpp GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h Event/Event.h GameModes/Game.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+main.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:13.304567004
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+SudokuGenerator/../SudokuGenerator/../LinkedNode/LinkedNode.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/BasicGui.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+SudokuGenerator/SudokuGenerator.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GameModes/Misc.o: GameModes/Misc.cpp GameModes/Misc.h Sudoku/Sudoku.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Sudoku/../Move/../Sudoku/Sudoku.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/CoOp.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+GUI/SudokuBoard.o: GUI/SudokuBoard.cpp GUI/SudokuBoard.h GUI/Drawable.h Sudoku/Sudoku.h GameModes/Game.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+UserInterfaces/NetworkInterface.d:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2021-12-15 19:07:46.131512748
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+UserInterfaces/NetworkInterface.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/Game.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:24.691330474
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Event/HintEvent.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+UserInterfaces/BasicInterface.o: UserInterfaces/BasicInterface.cpp UserInterfaces/BasicInterface.h UserInterfaces/UserInterface.h GameModes/Game.h Sudoku/Sudoku.h LinkedList/LinkedList.h LinkedList/../LinkedNode/LinkedNode.h GameModes/Misc.h Move/Move.h Move/../LinkedNode/LinkedNode.h Move/../Sudoku/Sudoku.h Event/Event.h GameModes/Misc.h Event/HintEvent.h Event/Event.h Event/MoveEvent.h Event/StateEvent.h Event/UndoEvent.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/UndoEvent.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+SudokuGenerator/../Sudoku/Sudoku.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Move/Move.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Selector.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GameModes/Misc.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Sudoku/Sudoku.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GUI/Drawable.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Event/UndoEvent.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:17.26460067
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GameModes/CoOp.d:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-15 19:07:23.567987592
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+UserInterfaces/BasicInterface.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+SudokuGame: main.o Event/Event.o Event/HintEvent.o Event/MoveEvent.o Event/StateEvent.o Event/UndoEvent.o GUI/Button.o GUI/Label.o GUI/Layout.o GUI/Message.o GUI/Selector.o GUI/SudokuBoard.o GUI/SudokuPanel.o GameModes/BasicGame.o GameModes/CoOp.o GameModes/Game.o GameModes/Misc.o Move/Move.o Sudoku/Sudoku.o SudokuGenerator/SudokuGenerator.o UserInterfaces/BasicGui.o UserInterfaces/BasicInterface.o UserInterfaces/NetworkInterface.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 9):
+	g++ -g -std=c++20 ${OBJECTS}  -o ${TARGET} -lsfml-graphics -lsfml-window -lsfml-system -lpthread -lboost_thread
+
+# Not a target:
+GUI/Label.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+LinkedList/../LinkedNode/LinkedNode.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=110/1024=11%, Rehash=0, Collisions=17/468=4%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 2 (1) / strings = 511 / storage = 9309 B / avg = 18 B
+# current buf: size = 8162 B / used = 1161 B / count = 50 / avg = 23 B
+# other used: total = 8148 B / count = 461 / avg = 17 B
+# other free: total = 14 B / max = 14 B / min = 14 B / avg = 14 B
+
+# strcache performance: lookups = 850 / hit rate = 39%
+# hash-table stats:
+# Load=511/8192=6%, Rehash=0, Collisions=64/850=8%
+# Finished Make data base on Wed Dec 15 19:11:12 2021
+
+ 

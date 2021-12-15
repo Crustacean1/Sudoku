@@ -2,7 +2,7 @@ SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp)
 OBJECTS := $(SOURCES:.cpp=.o)
 TARGET := $(shell pwd | xargs basename)
 CXX = g++
-CXXFLAGS = -g -Wall -Werror -std=c++20 -MMD -I ./  /home/kamil2/Libraries/boost_1_72_0/
+CXXFLAGS = -O3 -g -Wall -Werror -std=c++20 -MMD -I ./  /home/kamil2/Libraries/boost_1_72_0/
 DEPENDS = ${OBJECTS:.o=.d} main.d
 
 ${TARGET}: ${OBJECTS}
