@@ -1,0 +1,84 @@
+\hypertarget{classBasicGui}{}\doxysection{Basic\+Gui Class Reference}
+\label{classBasicGui}\index{BasicGui@{BasicGui}}
+Inheritance diagram for Basic\+Gui\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBasicGui}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBasicGui_a7d37fce85fbc6e2de6f33338c2ad1d81}\label{classBasicGui_a7d37fce85fbc6e2de6f33338c2ad1d81}} 
+{\bfseries Basic\+Gui} (\mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classEvent}{Event}} $>$$>$ \&\+\_\+event\+Queue, \mbox{\hyperlink{classLinkedList}{Linked\+List}}$<$ std\+::string $>$ \&\mbox{\hyperlink{classUserInterface_a6b36e28780bfc9b856f8f1d01cc1ff12}{\+\_\+message\+Queue}})
+\item 
+void \mbox{\hyperlink{classBasicGui_a280b9051fa6938243f202f173fad5825}{initiate}} (\mbox{\hyperlink{classGame}{Game}} \&game)
+\item 
+void \mbox{\hyperlink{classBasicGui_a9cfbba361cddaa7b827401177a38579b}{render}} (\mbox{\hyperlink{classGame}{Game}} \&game)
+\item 
+void \mbox{\hyperlink{classBasicGui_a49eda0625f434ca39eb7ba9108198dab}{input}} ()
+\item 
+void \mbox{\hyperlink{classBasicGui_ace7a03e4d4b9314562cb25766cdc8ce0}{display}} ()
+\item 
+void \mbox{\hyperlink{classBasicGui_a133b6b6bd5c393781b63d160ce8e1b01}{clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBasicGui_a133b6b6bd5c393781b63d160ce8e1b01}\label{classBasicGui_a133b6b6bd5c393781b63d160ce8e1b01}} 
+\index{BasicGui@{BasicGui}!clear@{clear}}
+\index{clear@{clear}!BasicGui@{BasicGui}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Basic\+Gui\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Clears screen before drawing 
+
+Implements \mbox{\hyperlink{classUserInterface_aef233f12da0c7a305ad26f6cf175eeb1}{User\+Interface}}.
+
+\mbox{\Hypertarget{classBasicGui_ace7a03e4d4b9314562cb25766cdc8ce0}\label{classBasicGui_ace7a03e4d4b9314562cb25766cdc8ce0}} 
+\index{BasicGui@{BasicGui}!display@{display}}
+\index{display@{display}!BasicGui@{BasicGui}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Basic\+Gui\+::display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Displays, or in case of CLI flushes, rendered elements. Meaningful mainly in GUI applications 
+
+Implements \mbox{\hyperlink{classUserInterface_a7e6efc543fba2792006c5580799876cf}{User\+Interface}}.
+
+\mbox{\Hypertarget{classBasicGui_a280b9051fa6938243f202f173fad5825}\label{classBasicGui_a280b9051fa6938243f202f173fad5825}} 
+\index{BasicGui@{BasicGui}!initiate@{initiate}}
+\index{initiate@{initiate}!BasicGui@{BasicGui}}
+\doxysubsubsection{\texorpdfstring{initiate()}{initiate()}}
+{\footnotesize\ttfamily void Basic\+Gui\+::initiate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGame}{Game}} \&}]{game }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Invoked before rendering of UI 
+
+Implements \mbox{\hyperlink{classUserInterface_a9db2a75c4773484cd9097a8beea80dfc}{User\+Interface}}.
+
+\mbox{\Hypertarget{classBasicGui_a49eda0625f434ca39eb7ba9108198dab}\label{classBasicGui_a49eda0625f434ca39eb7ba9108198dab}} 
+\index{BasicGui@{BasicGui}!input@{input}}
+\index{input@{input}!BasicGui@{BasicGui}}
+\doxysubsubsection{\texorpdfstring{input()}{input()}}
+{\footnotesize\ttfamily void Basic\+Gui\+::input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Gathers input from user and passes it to \+\_\+event\+Queue of appropriate type 
+
+Implements \mbox{\hyperlink{classUserInterface_aa82d6e471dc4e585523d76300a7209d5}{User\+Interface}}.
+
+\mbox{\Hypertarget{classBasicGui_a9cfbba361cddaa7b827401177a38579b}\label{classBasicGui_a9cfbba361cddaa7b827401177a38579b}} 
+\index{BasicGui@{BasicGui}!render@{render}}
+\index{render@{render}!BasicGui@{BasicGui}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Basic\+Gui\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGame}{Game}} \&}]{game }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Renders, or in case of CLI displays, UI elements. \mbox{\hyperlink{classGame}{Game}} rendered is specified to have select few base components, such as\+: \mbox{\hyperlink{classSudokuBoard}{Sudoku\+Board}}, \mbox{\hyperlink{classTimer}{Timer}} or \mbox{\hyperlink{classMistakeCounter}{Mistake\+Counter}} and others that will be drawn by UI instance 
+
+Implements \mbox{\hyperlink{classUserInterface_a8ecc84d5de0a1e65d8f72ff388316d4a}{User\+Interface}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+User\+Interfaces/Basic\+Gui.\+h\item 
+User\+Interfaces/Basic\+Gui.\+cpp\end{DoxyCompactItemize}
